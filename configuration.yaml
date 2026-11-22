@@ -33,15 +33,15 @@ light:
   - platform: group
     name: Ceiling Light
     entities:
-      - light.ikea_of_sweden_tradfri_bulb_e14_ws_opal_400lm_light_2
-      - light.ceiling_2_light
-      - light.ceiling_3_light_2
+      - light.living_room_ceiling_1
+      - light.living_room_ceiling_2
+      - light.living_room_ceiling_3
 
   - platform: group
     name: Floor Lights
     entities:
-      - light.floorlight1
-      - light.floorlight2
+      - light.living_room_floor_1
+      - light.living_room_floor_2
       
     
 

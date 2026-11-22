@@ -36,14 +36,14 @@
       sequence:
       - action: climate.turn_on
         target:
-          entity_id: climate.sensibo
+          entity_id: climate.living_room_ac
     - conditions:
       - condition: trigger
         id: cool
       sequence:
       - action: climate.turn_off
         target:
-          entity_id: climate.sensibo
+          entity_id: climate.living_room_ac
   mode: single
 - id: '1631559889262'
   alias: Cast to Google Hub
@@ -151,7 +151,7 @@
   description: Phone notification when the front door opens while nobody is home.
   triggers:
   - trigger: state
-    entity_id: binary_sensor.lumi_lumi_sensor_magnet_opening
+    entity_id: binary_sensor.front_door
     from: 'off'
     to: 'on'
   conditions:
@@ -213,18 +213,18 @@
     subtype: remote_button_short_press
     id: button
   - trigger: state
-    entity_id: binary_sensor.vibration_multivitamins_iaszone
+    entity_id: binary_sensor.desk_chair
     from: 'off'
     to: 'on'
     id: sat_down
   - trigger: state
-    entity_id: binary_sensor.vibration_multivitamins_iaszone
+    entity_id: binary_sensor.desk_chair
     to: 'off'
     for:
       minutes: 10
     id: left_desk
   variables:
-    monitors_on: '{{ is_state(''switch.smart_usb_extension_switch'', ''on'') }}'
+    monitors_on: '{{ is_state(''switch.desk_monitors'', ''on'') }}'
   actions:
   - choose:
     - conditions:
@@ -235,8 +235,8 @@
       - action: switch.turn_off
         target:
           entity_id:
-          - switch.smart_usb_extension_switch
-          - switch.smart_usb_extension_switch_2
+          - switch.desk_monitors
+          - switch.desk_lights
     - conditions:
       - condition: template
         value_template: '{{ trigger.id in [''button'', ''sat_down''] and not monitors_on
@@ -245,8 +245,8 @@
       - action: switch.turn_on
         target:
           entity_id:
-          - switch.smart_usb_extension_switch_2
-          - switch.smart_usb_extension_switch
+          - switch.desk_lights
+          - switch.desk_monitors
   mode: single
 - id: '1663155469637'
   alias: Ring Keypad Automations
@@ -299,7 +299,7 @@
     to: 'on'
     id: water_leak
   - trigger: numeric_state
-    entity_id: sensor.lumi_lumi_weather_temperature
+    entity_id: sensor.bedroom_temperature
     above: 25
     id: bedroom_too_hot
   - trigger: state
@@ -387,20 +387,20 @@
       sequence:
       - action: switch.turn_off
         target:
-          entity_id: switch.unnamed_room_night_sound
+          entity_id: switch.sonos_night_sound
       - action: switch.turn_on
         target:
-          entity_id: switch.unnamed_room_speech_enhancement
+          entity_id: switch.sonos_speech_enhancement
     - conditions:
       - condition: trigger
         id: night
       sequence:
       - action: switch.turn_on
         target:
-          entity_id: switch.unnamed_room_night_sound
+          entity_id: switch.sonos_night_sound
       - action: switch.turn_off
         target:
-          entity_id: switch.unnamed_room_speech_enhancement
+          entity_id: switch.sonos_speech_enhancement
   mode: single
 - id: '1778508017349'
   alias: Shade
@@ -415,7 +415,7 @@
   actions:
   - action: cover.set_cover_position
     target:
-      entity_id: cover.soma
+      entity_id: cover.bedroom_shade
     data:
       position: '{{ 100 if trigger.id == ''open'' else 0 }}'
   mode: single
@@ -487,14 +487,14 @@
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.motion_front_door
-    - binary_sensor.motion_hallway_mid
+    - binary_sensor.front_door_motion
+    - binary_sensor.hallway_motion
     to: 'on'
     id: motion
   - trigger: state
     entity_id:
-    - binary_sensor.motion_front_door
-    - binary_sensor.motion_hallway_mid
+    - binary_sensor.front_door_motion
+    - binary_sensor.hallway_motion
     to: 'off'
     for:
       minutes: 2
@@ -507,17 +507,17 @@
       sequence:
       - action: light.turn_on
         target:
-          entity_id: light.ikea_of_sweden_tradfribulbe27wsglobeopal1055lm_light
+          entity_id: light.front_door_light
     - conditions:
       - condition: trigger
         id: clear
       - condition: template
-        value_template: "{{ states('binary_sensor.motion_front_door') != 'on'\n   and
-          states('binary_sensor.motion_hallway_mid') != 'on' }}"
+        value_template: "{{ states('binary_sensor.front_door_motion') != 'on'\n   and
+          states('binary_sensor.hallway_motion') != 'on' }}"
       sequence:
       - action: light.turn_off
         target:
-          entity_id: light.ikea_of_sweden_tradfribulbe27wsglobeopal1055lm_light
+          entity_id: light.front_door_light
   mode: restart
 - id: '1789591482844'
   alias: N2 Remote
@@ -550,7 +550,7 @@
       sequence:
       - action: light.toggle
         target:
-          entity_id: light.mibedsidelamp2_4dc6
+          entity_id: light.bedside_lamp
     - conditions:
       - condition: template
         value_template: '{{ trigger.event.data.command == ''press'' and trigger.event.data.args[0]
@@ -558,7 +558,7 @@
       sequence:
       - action: switch.toggle
         target:
-          entity_id: switch.ikea_of_sweden_tradfri_control_outlet_switch
+          entity_id: switch.rope_light
     - conditions:
       - condition: template
         value_template: '{{ trigger.event.data.command == ''move'' and ''Down'' in
@@ -569,7 +569,7 @@
           scene: scene.all_off
       - action: light.turn_on
         target:
-          entity_id: light.mibedsidelamp2_4dc6
+          entity_id: light.bedside_lamp
         data:
           brightness_pct: 100
   mode: queued
@@ -587,11 +587,11 @@
     at: '22:30:00'
     id: schedule_off
   - trigger: state
-    entity_id: binary_sensor.lumi_lumi_sensor_magnet_opening_3
+    entity_id: binary_sensor.balcony_door
     to: 'on'
     id: opened
   - trigger: state
-    entity_id: binary_sensor.lumi_lumi_sensor_magnet_opening_3
+    entity_id: binary_sensor.balcony_door
     from: 'on'
     to: 'off'
     id: closed
@@ -615,7 +615,7 @@
       - condition: trigger
         id: schedule_off
       - condition: state
-        entity_id: binary_sensor.lumi_lumi_sensor_magnet_opening_3
+        entity_id: binary_sensor.balcony_door
         state: 'off'
       sequence:
       - action: switch.turn_off
@@ -648,17 +648,17 @@
     into bed.'
   triggers:
   - trigger: state
-    entity_id: binary_sensor.lumi_lumi_sensor_magnet_opening_4
+    entity_id: binary_sensor.bedroom_door
     from: 'off'
     to: 'on'
     id: door_open
   - trigger: state
-    entity_id: binary_sensor.lumi_lumi_sensor_magnet_opening_4
+    entity_id: binary_sensor.bedroom_door
     from: 'on'
     to: 'off'
     id: door_closed
   - trigger: state
-    entity_id: binary_sensor.withings_in_bed_olli_salonen
+    entity_id: binary_sensor.in_bed
     to: 'on'
     id: in_bed
   actions:
@@ -671,7 +671,7 @@
     then:
     - action: fan.turn_off
       target:
-        entity_id: fan.dmaker_p18_2d36_fan
+        entity_id: fan.bedroom_fan
   - if:
     - condition: trigger
       id: door_open
@@ -694,7 +694,7 @@
     then:
     - action: fan.turn_on
       target:
-        entity_id: fan.dmaker_p18_2d36_fan
+        entity_id: fan.bedroom_fan
   - if:
     - condition: trigger
       id: in_bed
@@ -758,12 +758,12 @@
   description: ''
   triggers:
   - trigger: state
-    entity_id: switch.smart_usb_extension_switch_2
+    entity_id: switch.desk_lights
     from: 'off'
     to: 'on'
     id: desk_on
   - trigger: state
-    entity_id: switch.smart_usb_extension_switch_2
+    entity_id: switch.desk_lights
     from: 'on'
     to: 'off'
     id: desk_off
@@ -840,12 +840,12 @@
         entity_id: alarm_control_panel.alarmo
         state: disarmed
       - condition: state
-        entity_id: binary_sensor.lumi_lumi_sensor_magnet_opening
+        entity_id: binary_sensor.front_door
         state: 'off'
       - condition: not
         conditions:
         - condition: state
-          entity_id: binary_sensor.withings_in_bed_olli_salonen
+          entity_id: binary_sensor.in_bed
           state: 'on'
       sequence:
       - action: alarm_control_panel.alarm_arm_away
@@ -931,7 +931,7 @@
             state: triggered
           - action: siren.turn_on
             target:
-              entity_id: siren.heiman_warningdevice_ef_3_0_siren
+              entity_id: siren.siren
             data:
               volume_level: 1
               duration: 300
@@ -942,7 +942,7 @@
       sequence:
       - action: siren.turn_off
         target:
-          entity_id: siren.heiman_warningdevice_ef_3_0_siren
+          entity_id: siren.siren
         continue_on_error: true
       - action: scene.turn_on
         target:
