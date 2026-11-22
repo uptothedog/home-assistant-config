@@ -795,3 +795,171 @@
         target:
           entity_id: scene.deskoff
   mode: single
+- id: '1789600000001'
+  alias: Alarm
+  description: 'Alarmo flow. Arms when Olli has been away 10 min (door closed, not
+    in bed). Entry delay: announcement on the speaker. Triggered: phone notification
+    with a Disarm button, flashing lights, siren only in away mode and only after
+    60 s without disarm. Disarm restores the lights. Disabled by initial_state: remove
+    that line to enable.'
+  initial_state: false
+  triggers:
+  - trigger: state
+    entity_id: person.olli
+    from: home
+    to: not_home
+    for:
+      minutes: 10
+    id: left_home
+  - trigger: state
+    entity_id: alarm_control_panel.alarmo
+    to: pending
+    id: entry_delay
+  - trigger: state
+    entity_id: alarm_control_panel.alarmo
+    to: triggered
+    id: triggered
+  - trigger: state
+    entity_id: alarm_control_panel.alarmo
+    from:
+    - triggered
+    - pending
+    to: disarmed
+    id: disarmed
+  - trigger: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: ALARM_DISARM
+    id: disarm_button
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: left_home
+      - condition: state
+        entity_id: alarm_control_panel.alarmo
+        state: disarmed
+      - condition: state
+        entity_id: binary_sensor.lumi_lumi_sensor_magnet_opening
+        state: 'off'
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: binary_sensor.withings_in_bed_olli_salonen
+          state: 'on'
+      sequence:
+      - action: alarm_control_panel.alarm_arm_away
+        target:
+          entity_id: alarm_control_panel.alarmo
+      - action: notify.mobile_app_zflip5
+        data:
+          title: Alarm armed
+          message: You left home, so the alarm is now armed.
+          data:
+            actions:
+            - action: ALARM_DISARM
+              title: Disarm
+    - conditions:
+      - condition: trigger
+        id: entry_delay
+      sequence:
+      - action: scene.turn_on
+        target:
+          entity_id: scene.hub_caution
+      - action: tts.speak
+        target:
+          entity_id: tts.home_assistant_cloud
+        data:
+          media_player_entity_id: media_player.living_room_speaker
+          message: Please enter the code to disable the alarm.
+          cache: true
+        continue_on_error: true
+    - conditions:
+      - condition: trigger
+        id: triggered
+      sequence:
+      - action: notify.mobile_app_zflip5
+        data:
+          title: Alarm triggered
+          message: The home alarm has been triggered. Check the front door camera.
+          data:
+            ttl: 0
+            priority: high
+            channel: alarm_stream
+            actions:
+            - action: ALARM_DISARM
+              title: Disarm
+      - action: scene.create
+        data:
+          scene_id: before_alarm
+          snapshot_entities:
+          - light.living_room_ceiling
+          - light.entryway_ceiling_light
+          - light.floor_lights
+          - light.kitchen_led
+      - parallel:
+        - repeat:
+            while:
+            - condition: state
+              entity_id: alarm_control_panel.alarmo
+              state: triggered
+            - condition: template
+              value_template: '{{ repeat.index <= 300 }}'
+            sequence:
+            - action: scene.turn_on
+              target:
+                entity_id: scene.alarm
+            - delay:
+                seconds: 1
+            - action: scene.turn_on
+              target:
+                entity_id: scene.all_off
+            - delay:
+                seconds: 1
+        - if:
+          - condition: template
+            value_template: '{{ state_attr(''alarm_control_panel.alarmo'', ''arm_mode'')
+              == ''armed_away'' }}'
+          then:
+          - wait_template: '{{ not is_state(''alarm_control_panel.alarmo'', ''triggered'')
+              }}'
+            timeout:
+              seconds: 60
+            continue_on_timeout: true
+          - condition: state
+            entity_id: alarm_control_panel.alarmo
+            state: triggered
+          - action: siren.turn_on
+            target:
+              entity_id: siren.heiman_warningdevice_ef_3_0_siren
+            data:
+              volume_level: 1
+              duration: 300
+            continue_on_error: true
+    - conditions:
+      - condition: trigger
+        id: disarmed
+      sequence:
+      - action: siren.turn_off
+        target:
+          entity_id: siren.heiman_warningdevice_ef_3_0_siren
+        continue_on_error: true
+      - action: scene.turn_on
+        target:
+          entity_id: scene.hub_off
+      - if:
+        - condition: template
+          value_template: '{{ states.scene.before_alarm is not none }}'
+        then:
+        - action: scene.turn_on
+          target:
+            entity_id: scene.before_alarm
+    - conditions:
+      - condition: trigger
+        id: disarm_button
+      sequence:
+      - action: alarm_control_panel.alarm_disarm
+        target:
+          entity_id: alarm_control_panel.alarmo
+  mode: parallel
+  max: 5
