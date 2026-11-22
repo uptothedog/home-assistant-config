@@ -1368,44 +1368,6 @@
     target:
       entity_id: media_player.sonos
   mode: single
-- id: '1764530153464'
-  alias: Turn On Balcony Lights
-  description: ''
-  triggers:
-  - trigger: time
-    at: '19:00:00'
-  conditions:
-  - condition: device
-    type: is_off
-    device_id: 779da878412d3344dc0449b186381cc0
-    entity_id: d055570de6698849f058f17bb7a2c5ed
-    domain: switch
-    enabled: true
-  actions:
-  - type: turn_on
-    device_id: 779da878412d3344dc0449b186381cc0
-    entity_id: d055570de6698849f058f17bb7a2c5ed
-    domain: switch
-  mode: single
-- id: '1764530430676'
-  alias: Turn Off Balcony Lights
-  description: ''
-  triggers:
-  - trigger: time
-    at: '23:30:00'
-  conditions:
-  - condition: device
-    type: is_on
-    device_id: 779da878412d3344dc0449b186381cc0
-    entity_id: d055570de6698849f058f17bb7a2c5ed
-    domain: switch
-    enabled: true
-  actions:
-  - type: turn_off
-    device_id: 779da878412d3344dc0449b186381cc0
-    entity_id: d055570de6698849f058f17bb7a2c5ed
-    domain: switch
-  mode: single
 - id: '1764686270303'
   alias: Monitors Off
   description: ''
@@ -1657,8 +1619,16 @@
   max: 4
 - id: '1789592215369'
   alias: Balcony Lights
-  description: ''
+  description: 'Winter schedule (Nov 15 to Feb 1): on at 19:00, off at 22:30. All
+    year: on when the balcony door opens 21:00 to 05:00, off when it closes (unless
+    the winter schedule is running).'
   triggers:
+  - trigger: time
+    at: '19:00:00'
+    id: schedule_on
+  - trigger: time
+    at: '22:30:00'
+    id: schedule_off
   - trigger: state
     entity_id: binary_sensor.lumi_lumi_sensor_magnet_opening_3
     to: 'on'
@@ -1668,14 +1638,38 @@
     from: 'on'
     to: 'off'
     id: closed
+  variables:
+    winter_season: '{% set md = now().month * 100 + now().day %}{{ md >= 1115 or
+      md <= 201 }}'
+    in_schedule: '{{ winter_season and today_at(''19:00'') <= now() < today_at(''22:30'')
+      }}'
   actions:
   - choose:
+    - conditions:
+      - condition: trigger
+        id: schedule_on
+      - condition: template
+        value_template: '{{ winter_season }}'
+      sequence:
+      - action: switch.turn_on
+        target:
+          entity_id: switch.outdoor_outlet
+    - conditions:
+      - condition: trigger
+        id: schedule_off
+      - condition: state
+        entity_id: binary_sensor.lumi_lumi_sensor_magnet_opening_3
+        state: 'off'
+      sequence:
+      - action: switch.turn_off
+        target:
+          entity_id: switch.outdoor_outlet
     - conditions:
       - condition: trigger
         id: opened
       - condition: time
         after: '21:00:00'
-        before: 05:00:00
+        before: '05:00:00'
       sequence:
       - action: switch.turn_on
         target:
@@ -1683,6 +1677,8 @@
     - conditions:
       - condition: trigger
         id: closed
+      - condition: template
+        value_template: '{{ not in_schedule }}'
       sequence:
       - action: switch.turn_off
         target:
