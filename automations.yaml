@@ -159,7 +159,7 @@
     entity_id: person.olli
     state: not_home
   actions:
-  - action: notify.mobile_app_zflip5
+  - action: notify.mobile_app_zflip7
     data:
       message: Someone has opened the front door.
   mode: single
@@ -851,7 +851,7 @@
       - action: alarm_control_panel.alarm_arm_away
         target:
           entity_id: alarm_control_panel.alarmo
-      - action: notify.mobile_app_zflip5
+      - action: notify.mobile_app_zflip7
         data:
           title: Alarm armed
           message: You left home, so the alarm is now armed.
@@ -878,7 +878,7 @@
       - condition: trigger
         id: triggered
       sequence:
-      - action: notify.mobile_app_zflip5
+      - action: notify.mobile_app_zflip7
         data:
           title: Alarm triggered
           message: The home alarm has been triggered. Check the front door camera.
