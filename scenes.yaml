@@ -1,0 +1,2410 @@
+- id: '1618154265695'
+  name: Daytime
+  entities:
+    light.unk_manufacturer_unk_model_light:
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 254
+      hs_color:
+      - 14.795
+      - 28.627
+      rgb_color:
+      - 255
+      - 200
+      - 182
+      xy_color:
+      - 0.41
+      - 0.342
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Kitchen
+      supported_features: 44
+      state: 'on'
+    light.ikea_of_sweden_tradfri_bulb_e14_ws_opal_400lm_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 3184
+      color_temp: 314
+      hs_color:
+      - 27.547
+      - 52.114
+      rgb_color:
+      - 255
+      - 183
+      - 122
+      xy_color:
+      - 0.479
+      - 0.38
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Ceiling 1
+      supported_features: 40
+      state: 'on'
+    light.ceiling_2_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 3184
+      color_temp: 314
+      hs_color:
+      - 27.547
+      - 52.114
+      rgb_color:
+      - 255
+      - 183
+      - 122
+      xy_color:
+      - 0.479
+      - 0.38
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Ceiling 2 Light
+      supported_features: 40
+      state: 'on'
+    light.ceiling_3_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 3105
+      color_temp: 322
+      hs_color:
+      - 27.661
+      - 54.116
+      rgb_color:
+      - 255
+      - 181
+      - 117
+      xy_color:
+      - 0.486
+      - 0.382
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Ceiling 3 Light
+      supported_features: 40
+      state: 'on'
+    light.floorlight2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Floor 2 Light
+      supported_features: 40
+      state: 'off'
+    light.entryway_ceiling_light:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 204
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Entryway Ceiling
+      supported_features: 40
+      state: 'on'
+    light.kitchen_led:
+      effect_list:
+      - 0 Rainbow
+      - 1 Tropical
+      - 2 Mint
+      - 3 Peachy
+      supported_color_modes:
+      - rgb
+      effect: 0 Rainbow
+      color_mode: rgb
+      brightness: 74
+      hs_color:
+      - 1
+      - 47.059
+      rgb_color:
+      - 255
+      - 137
+      - 135
+      xy_color:
+      - 0.508
+      - 0.316
+      friendly_name: Kitchen LED
+      supported_features: 4
+      state: 'on'
+    light.ledvance_window_light:
+      min_color_temp_kelvin: 1901
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 526
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 92
+      friendly_name: Window Light
+      supported_features: 44
+      state: 'off'
+    light.light_floor_1:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      off_with_transition: false
+      off_brightness: 191
+      friendly_name: Light Floor 1
+      supported_features: 40
+      state: 'off'
+    switch.tv_stand_led:
+      friendly_name: Outlet Tv Stand LED
+      state: 'off'
+    switch.lumi_lumi_plug_mmeu01_switch:
+      friendly_name: Outlet Shelf
+      state: 'off'
+    light.sofa_light:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 454
+      effect_list:
+      - Alarm
+      - Bedtime
+      - Candlelight
+      - Christmas
+      - Cozy
+      - Cool white
+      - Daylight
+      - Diwali
+      - Deep dive
+      - Fall
+      - Fireplace
+      - Forest
+      - Focus
+      - Golden white
+      - Halloween
+      - Jungle
+      - Mojito
+      - Night light
+      - Ocean
+      - Party
+      - Pulse
+      - Pastel colors
+      - Plantgrowth
+      - Romance
+      - Relax
+      - Sunset
+      - Spring
+      - Summer
+      - Steampunk
+      - True colors
+      - TV time
+      - White
+      - Wake-up
+      - Warm white
+      - Rhythm
+      supported_color_modes:
+      - color_temp
+      - rgbw
+      effect: Daylight
+      color_mode: color_temp
+      brightness: 128
+      color_temp_kelvin: 4200
+      color_temp: 238
+      hs_color:
+      - 26.743
+      - 31.364
+      rgb_color:
+      - 255
+      - 211
+      - 175
+      xy_color:
+      - 0.408
+      - 0.362
+      rgbw_color:
+      friendly_name: Sofa Light
+      supported_features: 4
+      state: 'on'
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      device_class: outlet
+      icon: mdi:wall-sconce-round-variant
+      friendly_name: Outlet Wall Bulb
+      state: 'off'
+  icon: mdi:clock-time-nine
+  metadata:
+    switch.tv_stand_led:
+      entity_only: true
+    switch.lumi_lumi_plug_mmeu01_switch:
+      entity_only: true
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      entity_only: true
+- id: '1618154581514'
+  name: Evening
+  entities:
+    light.unk_manufacturer_unk_model_light:
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 217
+      hs_color:
+      - 29.63
+      - 63.529
+      rgb_color:
+      - 255
+      - 173
+      - 93
+      xy_color:
+      - 0.515
+      - 0.392
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Kitchen
+      supported_features: 44
+      state: 'on'
+    light.ikea_of_sweden_tradfri_bulb_e14_ws_opal_400lm_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 2304
+      color_temp: 434
+      hs_color:
+      - 29.444
+      - 80.129
+      rgb_color:
+      - 255
+      - 151
+      - 51
+      xy_color:
+      - 0.567
+      - 0.389
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Ceiling 1
+      supported_features: 40
+      state: 'on'
+    light.ceiling_2_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 2304
+      color_temp: 434
+      hs_color:
+      - 29.444
+      - 80.129
+      rgb_color:
+      - 255
+      - 151
+      - 51
+      xy_color:
+      - 0.567
+      - 0.389
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Ceiling 2 Light
+      supported_features: 40
+      state: 'on'
+    light.ceiling_3_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 2304
+      color_temp: 434
+      hs_color:
+      - 29.444
+      - 80.129
+      rgb_color:
+      - 255
+      - 151
+      - 51
+      xy_color:
+      - 0.567
+      - 0.389
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Ceiling 3 Light
+      supported_features: 40
+      state: 'on'
+    switch.ikea_of_sweden_tradfri_control_outlet_switch:
+      friendly_name: Light Bulb Rope
+      state: 'on'
+    light.floorlight2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 2202
+      color_temp: 454
+      hs_color:
+      - 29.79
+      - 84.553
+      rgb_color:
+      - 255
+      - 146
+      - 39
+      xy_color:
+      - 0.579
+      - 0.388
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Floor 2 Light
+      supported_features: 40
+      state: 'on'
+    light.kitchen_led:
+      effect_list:
+      - 0 Rainbow
+      - 1 Tropical
+      - 2 Mint
+      - 3 Peachy
+      supported_color_modes:
+      - rgb
+      effect: 0 Rainbow
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 346.813
+      - 71.373
+      rgb_color:
+      - 255
+      - 73
+      - 113
+      xy_color:
+      - 0.582
+      - 0.279
+      friendly_name: Kitchen LED
+      supported_features: 4
+      state: 'on'
+    light.entryway_ceiling_light:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 158
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Entryway Ceiling
+      supported_features: 40
+      state: 'on'
+    light.ledvance_window_light:
+      min_color_temp_kelvin: 1901
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 526
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 191
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 8.148
+      - 63.529
+      rgb_color:
+      - 255
+      - 115
+      - 93
+      xy_color:
+      - 0.579
+      - 0.327
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Window Light
+      supported_features: 44
+      state: 'on'
+    light.light_floor_1:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 191
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Floor 1
+      supported_features: 40
+      state: 'on'
+    switch.lumi_lumi_plug_mmeu01_switch:
+      friendly_name: Outlet Shelf
+      state: 'off'
+    switch.tv_stand_led:
+      friendly_name: Outlet Tv Stand LED
+      state: 'on'
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      device_class: outlet
+      icon: mdi:wall-sconce-round-variant
+      friendly_name: Outlet Wall Bulb
+      state: 'on'
+    light.sofa_light:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 454
+      effect_list:
+      - Alarm
+      - Bedtime
+      - Candlelight
+      - Christmas
+      - Cozy
+      - Cool white
+      - Daylight
+      - Diwali
+      - Deep dive
+      - Fall
+      - Fireplace
+      - Forest
+      - Focus
+      - Golden white
+      - Halloween
+      - Jungle
+      - Mojito
+      - Night light
+      - Ocean
+      - Party
+      - Pulse
+      - Pastel colors
+      - Plantgrowth
+      - Romance
+      - Relax
+      - Sunset
+      - Spring
+      - Summer
+      - Steampunk
+      - True colors
+      - TV time
+      - White
+      - Wake-up
+      - Warm white
+      - Rhythm
+      supported_color_modes:
+      - color_temp
+      - rgbw
+      effect:
+      color_mode: rgbw
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 9.048
+      - 49.412
+      rgb_color:
+      - 255
+      - 148
+      - 129
+      xy_color:
+      - 0.505
+      - 0.334
+      rgbw_color:
+      - 250
+      - 38
+      - 0
+      - 255
+      friendly_name: Sofa Light
+      supported_features: 4
+      state: 'on'
+  icon: mdi:clock-time-six
+  metadata:
+    switch.lumi_lumi_plug_mmeu01_switch:
+      entity_only: true
+    switch.tv_stand_led:
+      entity_only: true
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      entity_only: true
+- id: '1618154758340'
+  name: Late Night
+  entities:
+    light.unk_manufacturer_unk_model_light:
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 217
+      friendly_name: Light Kitchen
+      supported_features: 44
+      state: 'off'
+    light.ikea_of_sweden_tradfri_bulb_e14_ws_opal_400lm_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 1
+      supported_features: 40
+      state: 'off'
+    light.ceiling_2_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 2 Light
+      supported_features: 40
+      state: 'off'
+    light.ceiling_3_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 3 Light
+      supported_features: 40
+      state: 'off'
+    light.floorlight2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 2202
+      color_temp: 454
+      hs_color:
+      - 29.79
+      - 84.553
+      rgb_color:
+      - 255
+      - 146
+      - 39
+      xy_color:
+      - 0.579
+      - 0.388
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Floor 2 Light
+      supported_features: 40
+      state: 'on'
+    light.kitchen_led:
+      effect_list:
+      - 0 Rainbow
+      - 1 Tropical
+      - 2 Mint
+      - 3 Peachy
+      supported_color_modes:
+      - rgb
+      friendly_name: Kitchen LED
+      supported_features: 4
+      effect: 0 Rainbow
+      color_mode: rgb
+      brightness: 110
+      hs_color:
+      - 18.824
+      - 100
+      rgb_color:
+      - 255
+      - 80
+      - 0
+      xy_color:
+      - 0.663
+      - 0.331
+      state: 'on'
+    light.entryway_ceiling_light:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      off_with_transition: false
+      off_brightness: 158
+      friendly_name: Entryway Ceiling
+      supported_features: 40
+      state: 'off'
+    light.ledvance_window_light:
+      min_color_temp_kelvin: 1901
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 526
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 92
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 22.025
+      - 92.941
+      rgb_color:
+      - 255
+      - 105
+      - 18
+      xy_color:
+      - 0.639
+      - 0.348
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Window Light
+      supported_features: 44
+      state: 'on'
+    light.light_floor_1:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 191
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Floor 1
+      supported_features: 40
+      state: 'on'
+    switch.lumi_lumi_plug_mmeu01_switch:
+      friendly_name: Outlet Shelf
+      state: 'on'
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      device_class: outlet
+      icon: mdi:wall-sconce-round-variant
+      friendly_name: Outlet Wall Bulb
+      state: 'on'
+    switch.tv_stand_led:
+      friendly_name: Outlet Tv Stand LED
+      state: 'off'
+    light.sofa_light:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 454
+      effect_list:
+      - Alarm
+      - Bedtime
+      - Candlelight
+      - Christmas
+      - Cozy
+      - Cool white
+      - Daylight
+      - Diwali
+      - Deep dive
+      - Fall
+      - Fireplace
+      - Forest
+      - Focus
+      - Golden white
+      - Halloween
+      - Jungle
+      - Mojito
+      - Night light
+      - Ocean
+      - Party
+      - Pulse
+      - Pastel colors
+      - Plantgrowth
+      - Romance
+      - Relax
+      - Sunset
+      - Spring
+      - Summer
+      - Steampunk
+      - True colors
+      - TV time
+      - White
+      - Wake-up
+      - Warm white
+      - Rhythm
+      supported_color_modes:
+      - color_temp
+      - rgbw
+      effect:
+      color_mode: color_temp
+      brightness: 64
+      color_temp_kelvin: 2200
+      color_temp: 454
+      hs_color:
+      - 29.797
+      - 84.644
+      rgb_color:
+      - 255
+      - 146
+      - 39
+      xy_color:
+      - 0.579
+      - 0.388
+      rgbw_color:
+      friendly_name: Sofa Light
+      supported_features: 4
+      state: 'on'
+  icon: mdi:clock-time-twelve
+  metadata:
+    switch.lumi_lumi_plug_mmeu01_switch:
+      entity_only: true
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      entity_only: true
+    switch.tv_stand_led:
+      entity_only: true
+- id: '1619974955484'
+  name: Alarm
+  entities:
+    light.side_lamp:
+      effect_list:
+      - colorloop
+      supported_color_modes:
+      - hs
+      - xy
+      color_mode: xy
+      brightness: 254
+      hs_color:
+      - 0
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      xy_color:
+      - 0.701
+      - 0.299
+      is_deconz_group: false
+      friendly_name: Kitchen Lamp
+      supported_features: 44
+      state: 'on'
+    light.mi_control_hub2_light:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 0
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 0
+      xy_color:
+      - 0.701
+      - 0.299
+      friendly_name: Mi Control Hub2 Light
+      supported_features: 17
+      state: 'on'
+    alarm_control_panel.mi_control_hub2_alarm:
+      code_format:
+      changed_by:
+      code_arm_required: true
+      friendly_name: Mi Control Hub2 Alarm
+      icon: mdi:shield-home
+      supported_features: 2
+      state: disarmed
+- id: '1620654987525'
+  name: Hub Arming
+  entities:
+    light.mi_control_hub2_light:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 240
+      - 100
+      rgb_color:
+      - 0
+      - 0
+      - 255
+      xy_color:
+      - 0.136
+      - 0.04
+      friendly_name: Mi Control Hub2 Light
+      supported_features: 17
+      state: 'on'
+    alarm_control_panel.mi_control_hub2_alarm:
+      code_format:
+      changed_by:
+      code_arm_required: true
+      friendly_name: Mi Control Hub2 Alarm
+      icon: mdi:shield-home
+      supported_features: 2
+      state: disarmed
+- id: '1620655058176'
+  name: Hub Done
+  entities:
+    light.mi_control_hub2_light:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 105.176
+      - 100
+      rgb_color:
+      - 63
+      - 255
+      - 0
+      xy_color:
+      - 0.199
+      - 0.724
+      friendly_name: Mi Control Hub2 Light
+      supported_features: 17
+      state: 'on'
+    alarm_control_panel.mi_control_hub2_alarm:
+      code_format:
+      changed_by:
+      code_arm_required: true
+      friendly_name: Mi Control Hub2 Alarm
+      icon: mdi:shield-home
+      supported_features: 2
+      state: disarmed
+- id: '1620655151525'
+  name: Hub Caution
+  entities:
+    light.mi_control_hub2_light:
+      supported_color_modes:
+      - hs
+      color_mode: hs
+      brightness: 255
+      hs_color:
+      - 14.824
+      - 100
+      rgb_color:
+      - 255
+      - 63
+      - 0
+      xy_color:
+      - 0.677
+      - 0.319
+      friendly_name: Mi Control Hub2 Light
+      supported_features: 17
+      state: 'on'
+    alarm_control_panel.mi_control_hub2_alarm:
+      code_format:
+      changed_by:
+      code_arm_required: true
+      friendly_name: Mi Control Hub2 Alarm
+      icon: mdi:shield-home
+      supported_features: 2
+      state: disarmed
+- id: '1620655371550'
+  name: Hub Off
+  entities:
+    light.mi_control_hub2_light:
+      supported_color_modes:
+      - hs
+      friendly_name: Mi Control Hub2 Light
+      supported_features: 17
+      state: 'off'
+    alarm_control_panel.mi_control_hub2_alarm:
+      code_format:
+      changed_by:
+      code_arm_required: true
+      friendly_name: Mi Control Hub2 Alarm
+      icon: mdi:shield-home
+      supported_features: 2
+      state: disarmed
+- id: '1620674352195'
+  name: Strip On
+  entities:
+    light.kitchen_led:
+      effect_list:
+      - 0 Basic
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 13.043
+      - 99.216
+      rgb_color:
+      - 255
+      - 57
+      - 2
+      xy_color:
+      - 0.681
+      - 0.316
+      effect: 0 Basic
+      icon: mdi:string-lights
+      friendly_name: Kitchen LED
+      supported_features: 4
+      state: 'on'
+  metadata: {}
+- id: '1633087451169'
+  name: Strip Off
+  entities:
+    light.kitchen_led:
+      effect_list:
+      - 0 Basic
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
+      icon: mdi:string-lights
+      friendly_name: Kitchen LED
+      supported_features: 4
+      state: 'off'
+  metadata: {}
+- id: '1633097560629'
+  name: Strip On (Night)
+  entities:
+    light.kitchen_led:
+      effect_list:
+      - 0 Basic
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 13.043
+      - 99.216
+      rgb_color:
+      - 255
+      - 57
+      - 2
+      xy_color:
+      - 0.681
+      - 0.316
+      effect: 0 Basic
+      icon: mdi:string-lights
+      friendly_name: Kitchen LED
+      supported_features: 4
+      state: 'on'
+  metadata: {}
+- id: '1660492458197'
+  name: All Off
+  entities:
+    light.ikea_of_sweden_tradfri_bulb_e14_ws_opal_400lm_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 1
+      supported_features: 40
+      state: 'off'
+    light.ceiling_2_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 2 Light
+      supported_features: 40
+      state: 'off'
+    light.ceiling_3_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 3 Light
+      supported_features: 40
+      state: 'off'
+    light.unk_manufacturer_unk_model_light:
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 217
+      friendly_name: Light Kitchen
+      supported_features: 44
+      state: 'off'
+    switch.ikea_of_sweden_tradfri_control_outlet_switch:
+      friendly_name: Light Bulb Rope
+      state: 'off'
+    light.signify_netherlands_b_v_lcl001_huelight:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      friendly_name: Light Desk Strip Huelight
+      supported_features: 44
+      state: unavailable
+    light.cololight:
+      effect_list:
+      - 80s Club
+      - Cherry Blossom
+      - Cocktail Parade
+      - Instagrammer
+      - Pensieve
+      - Savasana
+      - Sunrise
+      - The Circus
+      - Unicorns
+      - Christmas
+      - Rainbow Flow
+      - Music Mode
+      supported_color_modes:
+      - hs
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      set_effect:
+      set_hs_color:
+      - 22
+      - 94
+      set_brightness: 127
+      icon: mdi:hexagon-multiple
+      friendly_name: Cololight
+      supported_features: 4
+      state: 'off'
+    light.kitchen_led:
+      effect_list:
+      - 0 Rainbow
+      - 1 Tropical
+      - 2 Mint
+      - 3 Peachy
+      supported_color_modes:
+      - rgb
+      friendly_name: Kitchen LED
+      supported_features: 4
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      state: 'off'
+    light.entryway_ceiling_light:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      off_with_transition: false
+      off_brightness: 158
+      friendly_name: Entryway Ceiling
+      supported_features: 40
+      state: 'off'
+    light.ledvance_window_light:
+      min_color_temp_kelvin: 1901
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 526
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 92
+      friendly_name: Window Light
+      supported_features: 44
+      state: 'off'
+    light.light_floor_1:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      off_with_transition: false
+      off_brightness: 191
+      friendly_name: Light Floor 1
+      supported_features: 40
+      state: 'off'
+    light.floorlight2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Floor 2 Light
+      supported_features: 40
+      state: 'off'
+    switch.lumi_lumi_plug_mmeu01_switch:
+      friendly_name: Outlet Shelf
+      state: 'off'
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      device_class: outlet
+      icon: mdi:wall-sconce-round-variant
+      friendly_name: Outlet Wall Bulb
+      state: 'off'
+    switch.tv_stand_led:
+      friendly_name: Outlet Tv Stand LED
+      state: 'off'
+    light.bedroom_ceiling:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Bedroom ceiling
+      supported_features: 40
+      state: 'off'
+    light.sofa_light:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 454
+      effect_list:
+      - Alarm
+      - Bedtime
+      - Candlelight
+      - Christmas
+      - Cozy
+      - Cool white
+      - Daylight
+      - Diwali
+      - Deep dive
+      - Fall
+      - Fireplace
+      - Forest
+      - Focus
+      - Golden white
+      - Halloween
+      - Jungle
+      - Mojito
+      - Night light
+      - Ocean
+      - Party
+      - Pulse
+      - Pastel colors
+      - Plantgrowth
+      - Romance
+      - Relax
+      - Sunset
+      - Spring
+      - Summer
+      - Steampunk
+      - True colors
+      - TV time
+      - White
+      - Wake-up
+      - Warm white
+      - Rhythm
+      supported_color_modes:
+      - color_temp
+      - rgbw
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      rgbw_color:
+      friendly_name: Sofa Light
+      supported_features: 4
+      state: 'off'
+    light.living_room_tv_ambilight:
+      effect_list:
+      - 'FOLLOW_COLOR: AUTOMATIC_HUE: Expert'
+      - 'FOLLOW_COLOR: CUSTOM_COLOR'
+      - 'FOLLOW_COLOR: DEEP_WATER'
+      - 'FOLLOW_COLOR: FRESH_NATURE'
+      - 'FOLLOW_COLOR: HOT_LAVA'
+      - 'FOLLOW_COLOR: ISF'
+      - 'FOLLOW_COLOR: MANUAL_HUE: Expert'
+      - 'Mode: expert'
+      - 'Mode: lounge'
+      - 'Mode: manual'
+      supported_color_modes:
+      - hs
+      - onoff
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Living Room TV Ambilight
+      supported_features: 4
+      state: 'off'
+    media_player.living_room_tv:
+      source_list:
+      - Watch TV
+      - HDMI 1
+      - HDMI 2
+      - HDMI 3
+      - HDMI 4
+      assumed_state: true
+      device_class: tv
+      friendly_name: Living Room TV
+      supported_features: 155581
+      state: 'off'
+    remote.living_room_tv_remote:
+      friendly_name: Living Room TV Remote
+      supported_features: 0
+      state: 'off'
+    switch.living_room_tv_screen_state:
+      friendly_name: Living Room TV Screen state
+      state: unavailable
+  metadata:
+    switch.lumi_lumi_plug_mmeu01_switch:
+      entity_only: true
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      entity_only: true
+    switch.tv_stand_led:
+      entity_only: true
+  icon: mdi:alpha-x-circle-outline
+- id: '1660505246156'
+  name: Movie
+  entities:
+    light.unk_manufacturer_unk_model_light:
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 89
+      friendly_name: Light Kitchen
+      supported_features: 44
+      state: 'off'
+    light.signify_netherlands_b_v_lcl001_huelight:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      friendly_name: Light Desk Strip Huelight
+      supported_features: 44
+      state: unavailable
+    light.ikea_of_sweden_tradfri_bulb_e14_ws_opal_400lm_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 1
+      supported_features: 40
+      state: 'off'
+    light.ceiling_2_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 2 Light
+      supported_features: 40
+      state: 'off'
+    light.ceiling_3_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 3 Light
+      supported_features: 40
+      state: 'off'
+    light.floorlight2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 2202
+      hs_color:
+      - 29.79
+      - 84.553
+      rgb_color:
+      - 255
+      - 146
+      - 39
+      xy_color:
+      - 0.579
+      - 0.388
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Floor 2 Light
+      supported_features: 40
+      state: 'on'
+    switch.ikea_of_sweden_tradfri_control_outlet_switch:
+      friendly_name: Light Bulb Rope
+      state: 'off'
+    light.cololight:
+      effect_list:
+      - 80s Club
+      - Cherry Blossom
+      - Cocktail Parade
+      - Instagrammer
+      - Pensieve
+      - Savasana
+      - Sunrise
+      - The Circus
+      - Unicorns
+      - Christmas
+      - Rainbow Flow
+      - Music Mode
+      supported_color_modes:
+      - hs
+      effect:
+      color_mode: hs
+      brightness: 74
+      hs_color:
+      - 270
+      - 100
+      rgb_color:
+      - 128
+      - 0
+      - 255
+      xy_color:
+      - 0.218
+      - 0.078
+      set_effect:
+      set_hs_color:
+      - 270
+      - 100
+      set_brightness: 74
+      icon: mdi:hexagon-multiple
+      friendly_name: Cololight
+      supported_features: 4
+      state: 'on'
+    light.kitchen_led:
+      effect_list:
+      - 0 Rainbow
+      - 1 Tropical
+      - 2 Mint
+      - 3 Peachy
+      supported_color_modes:
+      - rgb
+      effect: 0 Rainbow
+      color_mode: rgb
+      brightness: 204
+      hs_color:
+      - 8.706
+      - 100
+      rgb_color:
+      - 255
+      - 37
+      - 0
+      xy_color:
+      - 0.692
+      - 0.307
+      friendly_name: Kitchen LED
+      supported_features: 4
+      state: 'on'
+    light.entryway_ceiling_light:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      off_with_transition: false
+      off_brightness: 158
+      friendly_name: Entryway Ceiling
+      supported_features: 40
+      state: 'off'
+    light.ledvance_window_light:
+      min_color_temp_kelvin: 1901
+      max_color_temp_kelvin: 6535
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 191
+      color_temp_kelvin:
+      hs_color:
+      - 267.059
+      - 100
+      rgb_color:
+      - 115
+      - 0
+      - 255
+      xy_color:
+      - 0.198
+      - 0.068
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Window Light
+      supported_features: 44
+      state: 'on'
+    light.light_floor_1:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 191
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Floor 1
+      supported_features: 40
+      state: 'on'
+    switch.lumi_lumi_plug_mmeu01_switch:
+      friendly_name: Outlet Shelf
+      state: 'off'
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      device_class: outlet
+      icon: mdi:wall-sconce-round-variant
+      friendly_name: Outlet Christmas tree
+      state: 'off'
+    switch.tv_stand_led:
+      friendly_name: Outlet Tv Stand LED
+      state: 'off'
+    light.sofa_light:
+      restored: true
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      effect_list:
+      - Alarm
+      - Bedtime
+      - Candlelight
+      - Christmas
+      - Cozy
+      - Cool white
+      - Daylight
+      - Diwali
+      - Deep dive
+      - Fall
+      - Fireplace
+      - Forest
+      - Focus
+      - Golden white
+      - Halloween
+      - Jungle
+      - Mojito
+      - Night light
+      - Ocean
+      - Party
+      - Pulse
+      - Pastel colors
+      - Plantgrowth
+      - Romance
+      - Relax
+      - Sunset
+      - Spring
+      - Summer
+      - Steampunk
+      - True colors
+      - TV time
+      - White
+      - Wake-up
+      - Warm white
+      - Rhythm
+      supported_color_modes:
+      - color_temp
+      - rgbw
+      friendly_name: Sofa Light
+      supported_features: 4
+      state: unavailable
+  icon: mdi:movie
+  metadata:
+    switch.lumi_lumi_plug_mmeu01_switch:
+      entity_only: true
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      entity_only: true
+    switch.tv_stand_led:
+      entity_only: true
+- id: '1702911786998'
+  name: Christmas
+  entities:
+    light.unk_manufacturer_unk_model_light:
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 178
+      hs_color:
+      - 5.412
+      - 100
+      rgb_color:
+      - 255
+      - 23
+      - 0
+      xy_color:
+      - 0.698
+      - 0.302
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Kitchen
+      supported_features: 44
+      state: 'on'
+    light.ikea_of_sweden_tradfri_bulb_e14_ws_opal_400lm_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 79
+      color_temp_kelvin: 2202
+      color_temp: 454
+      hs_color:
+      - 29.79
+      - 84.553
+      rgb_color:
+      - 255
+      - 146
+      - 39
+      xy_color:
+      - 0.579
+      - 0.388
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Ceiling 1
+      supported_features: 40
+      state: 'on'
+    light.ceiling_2_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 82
+      color_temp_kelvin: 2304
+      color_temp: 434
+      hs_color:
+      - 29.444
+      - 80.129
+      rgb_color:
+      - 255
+      - 151
+      - 51
+      xy_color:
+      - 0.567
+      - 0.389
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Ceiling 2 Light
+      supported_features: 40
+      state: 'on'
+    light.ceiling_3_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 97
+      color_temp_kelvin: 2304
+      color_temp: 434
+      hs_color:
+      - 29.444
+      - 80.129
+      rgb_color:
+      - 255
+      - 151
+      - 51
+      xy_color:
+      - 0.567
+      - 0.389
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Ceiling 3 Light
+      supported_features: 40
+      state: 'on'
+    switch.ikea_of_sweden_tradfri_control_outlet_switch:
+      friendly_name: Light Bulb Rope
+      state: 'on'
+    light.floorlight2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 254
+      color_temp_kelvin: 2202
+      color_temp: 454
+      hs_color:
+      - 29.79
+      - 84.553
+      rgb_color:
+      - 255
+      - 146
+      - 39
+      xy_color:
+      - 0.579
+      - 0.388
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Floor 2 Light
+      supported_features: 40
+      state: 'on'
+    light.kitchen_led:
+      effect_list:
+      - 0 Rainbow
+      - 1 Tropical
+      - 2 Mint
+      - 3 Peachy
+      supported_color_modes:
+      - rgb
+      friendly_name: Kitchen LED
+      supported_features: 4
+      state: unavailable
+    light.entryway_ceiling_light:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      off_with_transition: false
+      off_brightness: 158
+      friendly_name: Entryway Ceiling
+      supported_features: 40
+      state: 'off'
+    light.cololight:
+      effect_list:
+      - 80s Club
+      - Cherry Blossom
+      - Cocktail Parade
+      - Instagrammer
+      - Pensieve
+      - Savasana
+      - Sunrise
+      - The Circus
+      - Unicorns
+      - Christmas
+      - Rainbow Flow
+      - Music Mode
+      supported_color_modes:
+      - hs
+      effect: Instagrammer
+      color_mode: brightness
+      brightness: 255
+      hs_color:
+      rgb_color:
+      xy_color:
+      set_effect: Instagrammer
+      set_hs_color:
+      set_brightness: 255
+      icon: mdi:hexagon-multiple
+      friendly_name: Cololight
+      supported_features: 4
+      state: 'on'
+    light.ledvance_window_light:
+      min_color_temp_kelvin: 1901
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 526
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 92
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 304.941
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 234
+      xy_color:
+      - 0.413
+      - 0.167
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Window Light
+      supported_features: 44
+      state: 'on'
+    light.light_floor_1:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 191
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Floor 1
+      supported_features: 40
+      state: 'on'
+    light.sofa_light:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 454
+      effect_list:
+      - Alarm
+      - Bedtime
+      - Candlelight
+      - Christmas
+      - Cozy
+      - Cool white
+      - Daylight
+      - Diwali
+      - Deep dive
+      - Fall
+      - Fireplace
+      - Forest
+      - Focus
+      - Golden white
+      - Halloween
+      - Jungle
+      - Mojito
+      - Night light
+      - Ocean
+      - Party
+      - Pulse
+      - Pastel colors
+      - Plantgrowth
+      - Romance
+      - Relax
+      - Sunset
+      - Spring
+      - Summer
+      - Steampunk
+      - True colors
+      - TV time
+      - White
+      - Wake-up
+      - Warm white
+      - Rhythm
+      supported_color_modes:
+      - color_temp
+      - rgbw
+      effect:
+      color_mode: rgbw
+      brightness: 255
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 339.059
+      - 100
+      rgb_color:
+      - 255
+      - 0
+      - 89
+      xy_color:
+      - 0.637
+      - 0.27
+      rgbw_color:
+      - 255
+      - 0
+      - 89
+      - 0
+      friendly_name: Sofa Light
+      supported_features: 4
+      state: 'on'
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      device_class: outlet
+      icon: mdi:wall-sconce-round-variant
+      friendly_name: Outlet Christmas tree
+      state: 'on'
+    switch.lumi_lumi_plug_mmeu01_switch:
+      friendly_name: Outlet Shelf
+      state: 'off'
+  icon: mdi:hexagram-outline
+  metadata: {}
+- id: '1730823053649'
+  name: DeskOn
+  entities:
+    light.cololight:
+      effect_list:
+      - 80s Club
+      - Cherry Blossom
+      - Cocktail Parade
+      - Instagrammer
+      - Pensieve
+      - Savasana
+      - Sunrise
+      - The Circus
+      - Unicorns
+      - Christmas
+      - Rainbow Flow
+      - Music Mode
+      supported_color_modes:
+      - hs
+      effect:
+      color_mode: hs
+      brightness: 128
+      hs_color:
+      - 22
+      - 94
+      rgb_color:
+      - 255
+      - 103
+      - 15
+      xy_color:
+      - 0.638
+      - 0.348
+      set_effect:
+      set_hs_color:
+      - 22
+      - 94
+      set_brightness: 128
+      icon: mdi:hexagon-multiple
+      friendly_name: Cololight
+      supported_features: 4
+      state: 'on'
+    light.signify_netherlands_b_v_lcl001_huelight:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 76
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 9.231
+      - 66.275
+      rgb_color:
+      - 255
+      - 112
+      - 86
+      xy_color:
+      - 0.589
+      - 0.329
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Light Entryway Strip Huelight
+      supported_features: 44
+      state: 'on'
+  metadata: {}
+- id: '1730823075978'
+  name: DeskOff
+  entities:
+    light.cololight:
+      effect_list:
+      - 80s Club
+      - Cherry Blossom
+      - Cocktail Parade
+      - Instagrammer
+      - Pensieve
+      - Savasana
+      - Sunrise
+      - The Circus
+      - Unicorns
+      - Christmas
+      - Rainbow Flow
+      - Music Mode
+      supported_color_modes:
+      - hs
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      set_effect:
+      set_hs_color:
+      - 1.765
+      - 40
+      set_brightness: 74
+      icon: mdi:hexagon-multiple
+      friendly_name: Cololight
+      supported_features: 4
+      state: 'off'
+    light.signify_netherlands_b_v_lcl001_huelight:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 150
+      friendly_name: Light Entryway Strip Huelight
+      supported_features: 44
+      state: 'off'
+  metadata: {}
+- id: '1731936340307'
+  name: Aqua
+  entities:
+    light.kitchen_led:
+      effect_list:
+      - 0 Rainbow
+      - 1 Tropical
+      - 2 Mint
+      - 3 Peachy
+      supported_color_modes:
+      - rgb
+      friendly_name: Kitchen LED
+      supported_features: 4
+      effect: 0 Rainbow
+      color_mode: rgb
+      brightness: 69
+      hs_color:
+      - 220.118
+      - 66.275
+      rgb_color:
+      - 86
+      - 142
+      - 255
+      xy_color:
+      - 0.174
+      - 0.167
+      state: 'on'
+    light.unk_manufacturer_unk_model_light:
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - xy
+      effect:
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Kitchen
+      supported_features: 44
+      state: 'off'
+    light.ikea_of_sweden_tradfri_bulb_e14_ws_opal_400lm_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 1
+      supported_features: 40
+      state: 'off'
+    light.ceiling_2_light:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 2 Light
+      supported_features: 40
+      state: 'off'
+    light.ceiling_3_light_2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Ceiling 3 Light
+      supported_features: 40
+      state: 'off'
+    light.cololight:
+      effect_list:
+      - 80s Club
+      - Cherry Blossom
+      - Cocktail Parade
+      - Instagrammer
+      - Pensieve
+      - Savasana
+      - Sunrise
+      - The Circus
+      - Unicorns
+      - Christmas
+      - Rainbow Flow
+      - Music Mode
+      supported_color_modes:
+      - hs
+      effect:
+      color_mode: hs
+      brightness: 125
+      hs_color:
+      - 210.118
+      - 100
+      rgb_color:
+      - 0
+      - 127
+      - 255
+      xy_color:
+      - 0.141
+      - 0.137
+      set_effect:
+      set_hs_color:
+      - 210.118
+      - 100
+      set_brightness: 125
+      icon: mdi:hexagon-multiple
+      friendly_name: Cololight
+      supported_features: 4
+      state: 'on'
+    light.signify_netherlands_b_v_lcl001_huelight:
+      min_color_temp_kelvin: 2000
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      friendly_name: Light Desk Strip Huelight
+      supported_features: 44
+      state: unavailable
+    light.ledvance_window_light:
+      min_color_temp_kelvin: 1901
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 526
+      effect_list:
+      - 'off'
+      - colorloop
+      supported_color_modes:
+      - color_temp
+      - xy
+      effect: 'off'
+      color_mode: xy
+      brightness: 191
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 214.154
+      - 76.471
+      rgb_color:
+      - 60
+      - 144
+      - 255
+      xy_color:
+      - 0.156
+      - 0.162
+      off_with_transition: false
+      off_brightness:
+      friendly_name: Window Light
+      supported_features: 44
+      state: 'on'
+    light.entryway_ceiling_light:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      off_with_transition: false
+      off_brightness: 158
+      friendly_name: Entryway Ceiling
+      supported_features: 40
+      state: 'off'
+    light.floorlight2:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      supported_color_modes:
+      - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      off_with_transition: false
+      off_brightness: 254
+      friendly_name: Light Floor 2 Light
+      supported_features: 40
+      state: 'off'
+    light.light_floor_1:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      off_with_transition: false
+      off_brightness: 191
+      friendly_name: Light Floor 1
+      supported_features: 40
+      state: 'off'
+    light.sofa_light:
+      min_color_temp_kelvin: 2200
+      max_color_temp_kelvin: 6500
+      min_mireds: 153
+      max_mireds: 454
+      effect_list:
+      - Alarm
+      - Bedtime
+      - Candlelight
+      - Christmas
+      - Cozy
+      - Cool white
+      - Daylight
+      - Diwali
+      - Deep dive
+      - Fall
+      - Fireplace
+      - Forest
+      - Focus
+      - Golden white
+      - Halloween
+      - Jungle
+      - Mojito
+      - Night light
+      - Ocean
+      - Party
+      - Pulse
+      - Pastel colors
+      - Plantgrowth
+      - Romance
+      - Relax
+      - Sunset
+      - Spring
+      - Summer
+      - Steampunk
+      - True colors
+      - TV time
+      - White
+      - Wake-up
+      - Warm white
+      - Rhythm
+      supported_color_modes:
+      - color_temp
+      - rgbw
+      effect:
+      color_mode: rgbw
+      brightness: 125
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      - 184
+      - 100
+      rgb_color:
+      - 0
+      - 238
+      - 255
+      xy_color:
+      - 0.15
+      - 0.316
+      rgbw_color:
+      - 0
+      - 238
+      - 255
+      - 0
+      friendly_name: Sofa Light
+      supported_features: 4
+      state: 'on'
+    switch.lumi_lumi_plug_mmeu01_switch_2:
+      device_class: outlet
+      icon: mdi:wall-sconce-round-variant
+      friendly_name: Outlet Wall Bulb
+      state: 'off'
+    switch.lumi_lumi_plug_mmeu01_switch:
+      friendly_name: Outlet Shelf
+      state: 'off'
+  metadata: {}

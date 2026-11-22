@@ -1,0 +1,75 @@
+text_to_speech_on_sonos:
+  alias: Text-to-Speech on Sonos
+  use_blueprint:
+    path: Talvish/sonos_say.yaml
+    input:
+      tts_service_name: cloud.say
+  icon: mdi:account-voice
+  mode: single
+apply_lights:
+  alias: Apply Lights
+  mode: restart
+  max_exceeded: silent
+  fields:
+    scene:
+      description: Scene to apply. Omit to pick by time of day.
+      selector:
+        entity:
+          filter:
+            domain: scene
+    passes:
+      description: How many times to apply it. Fewer is snappier.
+      selector:
+        number:
+          min: 1
+          max: 5
+  sequence:
+  - variables:
+      chosen: "{%- if scene is defined and scene -%}\n  {{ scene }}\n{%- else -%}\n
+        \ {%- set n = now() -%}\n  {%- set day = today_at('05:00') -%}\n  {%- set
+        eve = today_at('18:00') -%}\n  {%- set night = today_at('23:30') -%}\n  {{
+        'scene.daytime' if day <= n < eve\n     else 'scene.evening' if eve <= n <
+        night\n     else 'scene.late_night' }}\n{%- endif -%}"
+  - if:
+    - condition: template
+      value_template: '{{ chosen != ''scene.movie'' }}'
+    then:
+    - action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.movie_mode_on
+  - repeat:
+      count: '{{ passes | default(3) | int }}'
+      sequence:
+      - if:
+        - condition: template
+          value_template: '{{ repeat.index > 1 }}'
+        then:
+        - delay:
+            milliseconds: 400
+      - action: scene.turn_on
+        target:
+          entity_id: '{{ chosen }}'
+cycle_lights_scene:
+  alias: Cycle Lights Scene
+  mode: queued
+  max: 4
+  fields:
+    step:
+      description: 1 for forward, -1 for backward
+  sequence:
+  - variables:
+      order:
+      - scene.daytime
+      - scene.evening
+      - scene.late_night
+  - variables:
+      dir: '{{ step | default(1) | int }}'
+  - variables:
+      next_scene: "{%- set ns = namespace(best=-1, idx=-1) -%} {%- for e in order
+        -%}\n  {%- set t = as_timestamp(states(e), 0) -%}\n  {%- if t > ns.best -%}{%-
+        set ns.best = t -%}{%- set ns.idx = loop.index0 -%}{%- endif -%}\n{%- endfor
+        -%} {{ order[(ns.idx + dir) % (order | count)] }}"
+  - action: script.apply_lights
+    data:
+      scene: '{{ next_scene }}'
+      passes: 1

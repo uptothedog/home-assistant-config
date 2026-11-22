@@ -1,0 +1,100 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+  
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+telegram_bot:
+  - platform: webhooks
+    api_key: !secret telegram_api
+    allowed_chat_ids:
+      - !secret telegram_chat_id
+      
+      
+notify:
+  - name: Nona
+    platform: telegram
+    chat_id: !secret telegram_chat_id
+
+homeassistant:
+  customize: !include customize.yaml
+  
+ifttt:
+  key: !secret ifttt_api
+  
+light:
+  - platform: group
+    name: Ceiling Light
+    entities:
+      - light.ikea_of_sweden_tradfri_bulb_e14_ws_opal_400lm_light_2
+      - light.ceiling_2_light
+      - light.ceiling_3_light_2
+
+  - platform: group
+    name: Floor Lights
+    entities:
+      - light.floorlight1
+      - light.floorlight2
+      
+    
+
+  
+template:
+  - sensor:
+      - name: "Date and time"
+        state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%B %d, %H:%M') }}"
+        icon: "mdi:calendar-clock"
+        
+
+  - sensor:
+      - name: "DateLocale"
+        state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%d.%m.%Y') }}"
+        icon: "mdi:calendar-clock"
+        
+
+
+
+
+
+sensor:
+  # Minimal configuration of the standard time and date sensor
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'date_time_utc'
+      - 'date_time_iso'
+      - 'time_date'
+      - 'time_utc'
+  # Build on the standard sensor to produce one that can be customized
+
+
+
+
+sun:
+    
+    
+
+  
+frontend:
+  themes: !include_dir_merge_named themes
+  
+  extra_module_url:
+  - /hacsfiles/lovelace-card-mod/card-mod.js
+
+
+
+
+
+    
+my:
+
+    

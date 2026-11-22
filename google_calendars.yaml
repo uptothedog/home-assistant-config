@@ -1,0 +1,40 @@
+
+- cal_id: fi.finnish#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: suomen_juhlapyhat
+    ignore_availability: true
+    name: "Suomen juhlapyh\xE4t"
+    track: true
+
+- cal_id: salonen.olli@gmail.com
+  entities:
+  - device_id: salonen_olli_gmail_com
+    ignore_availability: true
+    name: salonen.olli@gmail.com
+    track: true
+
+- cal_id: fq9k3lh3i76qtmukkn0rv5go4s@group.calendar.google.com
+  entities:
+  - device_id: treenis
+    ignore_availability: true
+    name: Treenis
+    track: true
+
+- cal_id: e_2_fi#weeknum@group.v.calendar.google.com
+  entities:
+  - device_id: viikkonumerot
+    ignore_availability: true
+    name: Viikkonumerot
+    track: true
+
+- cal_id: en.finnish#holiday@group.v.calendar.google.com
+  entities:
+  - device_id: holidays_in_finland
+    ignore_availability: true
+    name: Holidays in Finland
+
+- cal_id: 464618bfdbad404702170d7bfc34b34f18b4fdc79e2e199b54d8ff0cfd0b7d15@group.calendar.google.com
+  entities:
+  - device_id: tulppiksen_treenis
+    ignore_availability: true
+    name: Tulppiksen treenis
