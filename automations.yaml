@@ -1,6 +1,6 @@
 - id: '1620653440877'
   alias: Humidity Drops Below 30
-  description: Telegram nudge when the air has been dry (below 30%) for a whole day.
+  description: Phone nudge when the air has been dry (below 30%) for a whole day.
   triggers:
   - trigger: numeric_state
     entity_id: sensor.airthings_humidity
@@ -8,8 +8,9 @@
     for:
       hours: 24
   actions:
-  - action: telegram_bot.send_message
+  - action: notify.mobile_app_zflip7
     data:
+      title: Dry air
       message: '{% set h = states(''sensor.airthings_humidity'') %}{{ ["Hey Olli,
         humidity levels at home are on the dry side at " ~ h ~ "%. It would be best
         to try and maintain air humidity above 30 percent.", "Air''s a bit dry at
