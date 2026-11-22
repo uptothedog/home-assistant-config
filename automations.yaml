@@ -56,7 +56,7 @@
       view: hub
 - id: '1634049171320'
   alias: Leaving Home
-  description: Stop the Sonos when leaving, vacuum after 10 min away (once a day),
+  description: Pause the Sonos when leaving (Welcome Home resumes it), vacuum after 10 min away (once a day),
     lights off after 15 min away. Resets the vacuum flag at 07:00.
   triggers:
   - trigger: state
@@ -89,9 +89,12 @@
         entity_id: media_player.sonos
         state: playing
       sequence:
-      - action: media_player.media_stop
+      - action: media_player.media_pause
         target:
           entity_id: media_player.sonos
+      - action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.sonos_resume
     - conditions:
       - condition: trigger
         id: vacuum
@@ -963,3 +966,216 @@
           entity_id: alarm_control_panel.alarmo
   mode: parallel
   max: 5
+- id: '1789700000002'
+  alias: Battery Alerts
+  description: Phone alert with the battery type when a sensor drops below 20%, plus
+    a Sunday 18:00 roundup of everything still low. Unplugged sensors (unavailable)
+    are skipped.
+  variables:
+    threshold: 20
+    batteries:
+      sensor.airthings_battery: [Airthings, 3× AAA]
+      sensor.shortcut_button_battery: [Shortcut button, CR2032]
+      sensor.entryway_remote_battery: [Entryway remote, CR2032]
+      sensor.bedroom_remote_battery: [Bedroom remote, 2× AAA]
+      sensor.symfonisk_remote_battery: [Symfonisk remote, CR2032]
+      sensor.workdesk_button_battery: [Workdesk button, CR2032]
+      sensor.hidden_switch_button_battery: [Hidden switch, CR2032]
+      sensor.lumi_lumi_sensor_switch_battery: [Aqara button, CR2032]
+      sensor.closet_button_battery: [Closet button, CR2032]
+      sensor.front_door_sensor_battery: [Front door sensor, CR1632]
+      sensor.balcony_door_sensor_battery: [Balcony door sensor, CR1632]
+      sensor.bedroom_door_sensor_battery: [Bedroom door sensor, CR1632]
+      sensor.electrical_cabinet_sensor_battery: [Electrical cabinet sensor, CR1632]
+      sensor.front_door_motion_battery: [Front door motion, CR2450]
+      sensor.hallway_motion_battery: [Hallway motion, CR2450]
+      sensor.inner_motion_battery: [Inner motion, CR2450]
+      sensor.living_room_motion_battery: [Living room motion, CR2450]
+      sensor.bedroom_sensor_battery: [Bedroom temperature sensor, CR2032]
+      sensor.desk_chair_battery: [Desk chair sensor, CR2032]
+      sensor.washing_machine_battery_2: [Washing machine sensor, CR2032]
+      sensor.water_leak_sensor_alarm_battery: [Water leak sensor, CR2032 (some versions
+          take 2× AAA)]
+      sensor.bot_4f21_battery: [SwitchBot 4f21, CR2]
+      sensor.bot_b8cb_battery: [SwitchBot b8cb, CR2]
+      sensor.keypad_v2_battery_level: [Ring keypad, recharge over USB]
+      sensor.bedroom_shade_battery: [Bedroom shade, recharge with the Soma charger]
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.airthings_battery
+    - sensor.shortcut_button_battery
+    - sensor.entryway_remote_battery
+    - sensor.bedroom_remote_battery
+    - sensor.symfonisk_remote_battery
+    - sensor.workdesk_button_battery
+    - sensor.hidden_switch_button_battery
+    - sensor.lumi_lumi_sensor_switch_battery
+    - sensor.closet_button_battery
+    - sensor.front_door_sensor_battery
+    - sensor.balcony_door_sensor_battery
+    - sensor.bedroom_door_sensor_battery
+    - sensor.electrical_cabinet_sensor_battery
+    - sensor.front_door_motion_battery
+    - sensor.hallway_motion_battery
+    - sensor.inner_motion_battery
+    - sensor.living_room_motion_battery
+    - sensor.bedroom_sensor_battery
+    - sensor.desk_chair_battery
+    - sensor.washing_machine_battery_2
+    - sensor.water_leak_sensor_alarm_battery
+    - sensor.bot_4f21_battery
+    - sensor.bot_b8cb_battery
+    - sensor.keypad_v2_battery_level
+    - sensor.bedroom_shade_battery
+    below: 20
+    id: dropped
+  - trigger: time
+    at: '18:00:00'
+    weekday: sun
+    id: weekly
+  actions:
+  - variables:
+      low: >-
+        {% set ns = namespace(items=[]) %}
+        {% for e, info in batteries.items() if is_number(states(e)) and states(e) | float < threshold %}
+          {% set ns.items = ns.items + [info[0] ~ ' (' ~ states(e) | float | round(0) | int ~ '%): ' ~ info[1]] %}
+        {% endfor %}
+        {{ ns.items }}
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: dropped
+      sequence:
+      - action: notify.mobile_app_zflip7
+        data:
+          title: Battery low
+          message: >-
+            {% set info = batteries.get(trigger.entity_id, [trigger.to_state.name, 'check the device']) %}
+            {{ info[0] }} is at {{ trigger.to_state.state | float | round(0) | int }}%. It takes {{ info[1] }}.
+    - conditions:
+      - condition: trigger
+        id: weekly
+      - condition: template
+        value_template: '{{ low | count > 0 }}'
+      sequence:
+      - action: notify.mobile_app_zflip7
+        data:
+          title: Batteries to replace
+          message: '{{ low | join(''\n'') }}'
+          data:
+            tag: battery-roundup
+  mode: queued
+- id: '1789700000003'
+  alias: Wake-up Light
+  description: Starts 20 minutes before the phone's next alarm (04:00-11:00, when
+    home). Bedside lamp fades from a dim warm glow to bright neutral white, then the
+    shade opens at alarm time. Turning the lamp off stops the fade.
+  triggers:
+  - trigger: time
+    at:
+      entity_id: sensor.zflip7_next_alarm
+      offset: -00:20:00
+  conditions:
+  - condition: state
+    entity_id: person.olli
+    state: home
+  - condition: time
+    after: 03:40:00
+    before: '10:40:00'
+  actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.bedside_lamp
+    data:
+      brightness_pct: 1
+      color_temp_kelvin: 2000
+  - repeat:
+      while:
+      - condition: state
+        entity_id: light.bedside_lamp
+        state: 'on'
+      - condition: template
+        value_template: '{{ repeat.index <= 19 }}'
+      sequence:
+      - delay: 00:01:00
+      - if:
+        - condition: state
+          entity_id: light.bedside_lamp
+          state: 'on'
+        then:
+        - action: light.turn_on
+          target:
+            entity_id: light.bedside_lamp
+          data:
+            brightness_pct: '{{ 1 + repeat.index * 4 }}'
+            color_temp_kelvin: '{{ 2000 + repeat.index * 80 }}'
+  - if:
+    - condition: state
+      entity_id: light.bedside_lamp
+      state: 'on'
+    then:
+    - action: cover.set_cover_position
+      target:
+        entity_id: cover.bedroom_shade
+      data:
+        position: 100
+  mode: single
+- id: '1789700000004'
+  alias: Welcome Home
+  description: After being away 10+ minutes, waits for the front door (up to 15 min
+    after the phone gets home). Then lights on if the sun is down, and the Sonos resumes
+    if Leaving Home paused it less than 4 hours ago (08:00-23:00 only).
+  triggers:
+  - trigger: state
+    entity_id: person.olli
+    to: home
+    not_from:
+    - unknown
+    - unavailable
+  conditions:
+  - condition: template
+    value_template: '{{ now() - trigger.from_state.last_changed > timedelta(minutes=10)
+      }}'
+  actions:
+  - variables:
+      away: '{{ (now() - trigger.from_state.last_changed).total_seconds() }}'
+  - if:
+    - condition: template
+      value_template: '{{ now() - states.binary_sensor.front_door.last_changed > timedelta(minutes=5)
+        }}'
+    then:
+    - wait_for_trigger:
+      - trigger: state
+        entity_id: binary_sensor.front_door
+        to: 'on'
+      timeout: 00:15:00
+      continue_on_timeout: true
+  - if:
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    - condition: state
+      entity_id: input_boolean.lights_are_on
+      state: 'off'
+    then:
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.lights_are_on
+  - if:
+    - condition: state
+      entity_id: input_boolean.sonos_resume
+      state: 'on'
+    - condition: template
+      value_template: '{{ away | float < 4 * 3600 }}'
+    - condition: time
+      after: 08:00:00
+      before: '23:00:00'
+    then:
+    - action: media_player.media_play
+      target:
+        entity_id: media_player.sonos
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.sonos_resume
+  mode: single

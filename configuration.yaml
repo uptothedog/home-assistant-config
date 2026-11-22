@@ -25,6 +25,11 @@ notify:
 
 homeassistant:
   customize: !include customize.yaml
+
+input_boolean:
+  sonos_resume:
+    name: Sonos paused on leaving
+    icon: mdi:play-pause
   
 ifttt:
   key: !secret ifttt_api
