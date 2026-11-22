@@ -682,8 +682,8 @@
 - id: '1789593063851'
   alias: Bedroom
   description: 'Bedroom door: lights on when leaving in the morning, fan on when the
-    door closes at night and off when it opens in the morning. Lights off when getting
-    into bed.'
+    door closes at night and off when it opens in the morning. (Lights off at bedtime
+    is in Bedtime.)'
   triggers:
   - trigger: state
     entity_id: binary_sensor.bedroom_door
@@ -695,10 +695,6 @@
     from: 'on'
     to: 'off'
     id: door_closed
-  - trigger: state
-    entity_id: binary_sensor.in_bed
-    to: 'on'
-    id: in_bed
   actions:
   - if:
     - condition: trigger
@@ -733,16 +729,6 @@
     - action: fan.turn_on
       target:
         entity_id: fan.bedroom_fan
-  - if:
-    - condition: trigger
-      id: in_bed
-    - condition: time
-      after: '23:30:00'
-      before: 05:00:00
-    then:
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.lights_are_on
   mode: single
 - id: '1789593353880'
   alias: Living Room Remote
@@ -1267,12 +1253,18 @@
   mode: restart
 - id: '1789700000006'
   alias: Bedtime
-  description: Phone goes on the charger after 22:30 while home, so it's bedtime.
-    Lights off, Sonos paused, shade closed, wall tablet screen off.
+  description: Getting into bed or closing the bedroom door between 22:30 and 04:00
+    (while home, once a night). The bedside lamp comes on warm and dim, everything
+    else goes off, the Sonos pauses, the shade closes, and the wall tablet screen
+    goes off.
   triggers:
   - trigger: state
-    entity_id: sensor.zflip7_battery_state
-    to: charging
+    entity_id: binary_sensor.in_bed
+    to: 'on'
+  - trigger: state
+    entity_id: binary_sensor.bedroom_door
+    from: 'on'
+    to: 'off'
   conditions:
   - condition: state
     entity_id: person.olli
@@ -1280,7 +1272,16 @@
   - condition: time
     after: '22:30:00'
     before: 04:00:00
+  - condition: template
+    value_template: '{{ this.attributes.last_triggered is none or now() - this.attributes.last_triggered
+      > timedelta(hours=8) }}'
   actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.bedside_lamp
+    data:
+      brightness_pct: 25
+      color_temp_kelvin: 2200
   - action: input_boolean.turn_off
     target:
       entity_id: input_boolean.lights_are_on
