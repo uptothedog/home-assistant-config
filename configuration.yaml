@@ -11,18 +11,6 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
-telegram_bot:
-  - platform: webhooks
-    api_key: !secret telegram_api
-    allowed_chat_ids:
-      - !secret telegram_chat_id
-      
-      
-notify:
-  - name: Nona
-    platform: telegram
-    chat_id: !secret telegram_chat_id
-
 homeassistant:
   customize: !include customize.yaml
 
