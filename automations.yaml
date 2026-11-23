@@ -1482,3 +1482,203 @@
         ] | select | list %}
         {{ (d | join(' and ')) | capitalize }} {{ 'are' if d | count > 1 else 'is' }} still open.
   mode: single
+- id: '1789700000011'
+  alias: Cleaning Chores
+  description: Adds chores to the Cleaning list when they're due (10:00 daily) and
+    sends one phone message listing what was added. Scheduled chores reopen if they
+    were ticked off. Maintenance chores (Roborock, AC filter) are added while the
+    device says it's due, and cleared once it's reset. "Change bedsheets" is added
+    when the bedsheet timer runs out.
+  variables:
+    scheduled:
+    - name: Bathroom
+      weekday: 5
+    - name: Kitchen
+      weekday: 2
+    - name: Sauna
+      days: [1]
+    - name: Fridge
+      days: [1]
+    - name: Dust the shelves
+      days: [1, 15]
+    maintenance:
+    - name: Clean the Roborock sensors
+      due: '{{ states(''sensor.roborock_s6_sensor_time_left'') | float(1) <= 0 }}'
+    - name: Clean the Roborock filter
+      due: '{{ states(''sensor.roborock_s6_filter_time_left'') | float(1) <= 0 }}'
+    - name: Clean the Roborock main brush
+      due: '{{ states(''sensor.roborock_s6_main_brush_time_left'') | float(1) <= 0 }}'
+    - name: Clean the Roborock side brush
+      due: '{{ states(''sensor.roborock_s6_side_brush_time_left'') | float(1) <= 0 }}'
+    - name: Clean the AC filter
+      due: '{{ is_state(''binary_sensor.living_room_ac_filter_clean_required'', ''on'')
+        and now().month in [5, 6, 7, 8, 9] }}'
+  triggers:
+  - trigger: time
+    at: '10:00:00'
+    id: daily
+  - trigger: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.bedsheets_helper
+    id: bedsheets
+  actions:
+  - action: todo.get_items
+    target:
+      entity_id: todo.cleaning
+    data:
+      status:
+      - needs_action
+      - completed
+    response_variable: lst
+  - variables:
+      items: '{{ lst[''todo.cleaning''][''items''] }}'
+      open: '{{ items | selectattr(''status'', ''eq'', ''needs_action'') | map(attribute=''summary'')
+        | list }}'
+      done: '{{ items | selectattr(''status'', ''eq'', ''completed'') | map(attribute=''summary'')
+        | list }}'
+      due_now: >-
+        {% if trigger.id == 'bedsheets' %}
+          {{ ['Change bedsheets'] }}
+        {% else %}
+          {% set ns = namespace(d=[]) %}
+          {% for c in scheduled %}
+            {% if (c.weekday is defined and now().weekday() == c.weekday)
+               or (c.days is defined and now().day in c.days) %}
+              {% set ns.d = ns.d + [c.name] %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.d }}
+        {% endif %}
+      maint_due: >-
+        {% if trigger.id == 'daily' %}
+          {{ maintenance | selectattr('due') | map(attribute='name') | list }}
+        {% else %}[]{% endif %}
+      maint_reset: >-
+        {% if trigger.id == 'daily' %}
+          {{ maintenance | rejectattr('due') | map(attribute='name') | select('in', done) | list }}
+        {% else %}[]{% endif %}
+      to_add: '{{ (due_now | reject(''in'', open) | reject(''in'', done) | list) + (maint_due
+        | reject(''in'', open) | reject(''in'', done) | list) }}'
+      to_reopen: '{{ due_now | select(''in'', done) | list }}'
+  - repeat:
+      for_each: '{{ to_add }}'
+      sequence:
+      - action: todo.add_item
+        target:
+          entity_id: todo.cleaning
+        data:
+          item: '{{ repeat.item }}'
+          due_date: '{{ now().date() }}'
+  - repeat:
+      for_each: '{{ to_reopen }}'
+      sequence:
+      - action: todo.update_item
+        target:
+          entity_id: todo.cleaning
+        data:
+          item: '{{ repeat.item }}'
+          status: needs_action
+          due_date: '{{ now().date() }}'
+  - repeat:
+      for_each: '{{ maint_reset }}'
+      sequence:
+      - action: todo.remove_item
+        target:
+          entity_id: todo.cleaning
+        data:
+          item: '{{ repeat.item }}'
+  - if:
+    - condition: template
+      value_template: '{{ (to_add + to_reopen) | count > 0 }}'
+    then:
+    - action: notify.mobile_app_zflip7
+      data:
+        title: Cleaning
+        message: 'Added to the list: {{ (to_add + to_reopen) | join('', '') }}.'
+        data:
+          tag: cleaning
+  mode: queued
+- id: '1789700000012'
+  alias: Weekly Health Check
+  description: Sundays at 18:05, one phone message with available updates and entities
+    that went unavailable during the week (ignoring the minutes right after a restart).
+    Low batteries come in the Battery Alerts roundup at 18:00.
+  triggers:
+  - trigger: time
+    at: '18:05:00'
+    weekday: sun
+  actions:
+  - variables:
+      updates: '{{ states.update | selectattr(''state'', ''eq'', ''on'') | map(attribute=''name'')
+        | list }}'
+      started: '{{ as_datetime(states(''sensor.uptime''), now() - timedelta(days=30))
+        }}'
+      offline: >-
+        {% set ns = namespace(e=[]) %}
+        {% for s in states
+           if s.domain in ['light', 'switch', 'binary_sensor', 'sensor', 'media_player', 'climate', 'cover', 'fan', 'vacuum']
+           and s.state == 'unavailable'
+           and s.last_changed > now() - timedelta(days=7)
+           and s.last_changed > as_datetime(started) + timedelta(minutes=15) %}
+          {% set ns.e = ns.e + [s.name] %}
+        {% endfor %}
+        {{ ns.e }}
+  - action: notify.mobile_app_zflip7
+    data:
+      title: Weekly HA check
+      message: >-
+        {% if updates | count == 0 and offline | count == 0 %}All good: no updates waiting and nothing went offline this week.
+        {%- else -%}
+        {%- if updates | count > 0 %}Updates ({{ updates | count }}): {{ updates | join(', ') }}.{% endif %}
+        {%- if offline | count > 0 %} Went offline ({{ offline | count }}): {{ offline[:10] | join(', ') }}{{ ' and more' if offline | count > 10 }}.{% endif %}
+        {%- endif %}
+      data:
+        tag: health-check
+  mode: single
+- id: '1789700000013'
+  alias: Back Up UI Edits
+  description: At 04:00, commits automations, scripts and scenes edited in the HA
+    UI and pushes them to GitHub. Phone message only when something was pushed or
+    it failed.
+  triggers:
+  - trigger: time
+    at: 04:00:00
+  actions:
+  - action: shell_command.backup_ui_edits
+    response_variable: result
+  - if:
+    - condition: template
+      value_template: '{{ result.returncode != 0 or ''Backed up'' in result.stdout }}'
+    then:
+    - action: notify.mobile_app_zflip7
+      data:
+        title: '{{ ''UI edits backed up'' if result.returncode == 0 else ''UI backup failed''
+          }}'
+        message: '{{ (result.stdout ~ '' '' ~ result.stderr) | trim | truncate(250) }}'
+        data:
+          tag: ui-backup
+  mode: single
+- id: '1789700000014'
+  alias: Mold Risk
+  description: Phone message when the Airthings mold risk index (0-10) stays at 5
+    or above for 6 hours. At most once a day.
+  triggers:
+  - trigger: numeric_state
+    entity_id: sensor.airthings_mold
+    above: 4.9
+    for:
+      hours: 6
+  conditions:
+  - condition: template
+    value_template: '{{ this.attributes.last_triggered is none or now() - this.attributes.last_triggered
+      > timedelta(hours=24) }}'
+  actions:
+  - action: notify.mobile_app_zflip7
+    data:
+      title: Mold risk
+      message: The Airthings mold risk is {{ states('sensor.airthings_mold') }} (out
+        of 10). Air out, keep humidity down, and check window corners for condensation.
+      data:
+        tag: mold
+  mode: single
