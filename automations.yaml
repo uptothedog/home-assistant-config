@@ -1184,6 +1184,14 @@
     - action: input_boolean.turn_on
       target:
         entity_id: input_boolean.lights_are_on
+    - action: script.turn_on
+      target:
+        entity_id: script.announce
+      data:
+        variables:
+          message: Olli just got home and it's dark out, so the lights are on.
+          priority: low
+          room: living_room
   - if:
     - condition: state
       entity_id: input_boolean.sonos_resume
@@ -1240,6 +1248,13 @@
                 ttl: 0
                 priority: high
                 channel: alarm_stream
+          - action: script.turn_on
+            target:
+              entity_id: script.announce
+            data:
+              variables:
+                message: Water leak! The leak sensor is wet. Check it now.
+                priority: urgent
           - delay: 00:05:00
     - conditions:
       - condition: trigger
@@ -1251,6 +1266,13 @@
           message: The leak sensor is dry again.
           data:
             tag: water-leak
+      - action: script.turn_on
+        target:
+          entity_id: script.announce
+        data:
+          variables:
+            message: The water leak sensor is dry again.
+            priority: normal
   mode: restart
 - id: '1789700000006'
   alias: Bedtime
@@ -1331,6 +1353,14 @@
             minutes.
           data:
             tag: vacuum
+      - action: script.turn_on
+        target:
+          entity_id: script.announce
+        data:
+          variables:
+            message: The robot vacuum finished cleaning.
+            details: Cleaned {{ states('sensor.roborock_s6_cleaning_area') }} square meters in {{ states('sensor.roborock_s6_cleaning_time') | float(0) | round(0) | int }} minutes.
+            priority: low
     - conditions:
       - condition: trigger
         id: stuck
@@ -1342,6 +1372,14 @@
             | replace(''_'', '' '') }}.'
           data:
             tag: vacuum
+      - action: script.turn_on
+        target:
+          entity_id: script.announce
+        data:
+          variables:
+            message: The robot vacuum is stuck and needs help.
+            details: 'Error: {{ states(''sensor.roborock_s6_vacuum_error'') | replace(''_'', '' '') }}.'
+            priority: normal
   mode: single
 - id: '1789700000008'
   alias: Wall Tablet Screen
@@ -1440,6 +1478,15 @@
         the balcony door for a bit?
       data:
         tag: air-out
+  - action: script.turn_on
+    target:
+      entity_id: script.announce
+    data:
+      variables:
+        message: The air is getting stale; suggest opening the balcony door for a bit.
+        details: VOC level is {{ states('sensor.airthings_voc') | int(0) }} ppb.
+        priority: low
+        room: living_room
   - if:
     - condition: template
       value_template: '{{ now().month in [11, 12, 1, 2, 3] }}'
@@ -1466,6 +1513,13 @@
           message: It's been 10 minutes. Time to close the balcony door.
           data:
             tag: air-out
+      - action: script.turn_on
+        target:
+          entity_id: script.announce
+        data:
+          variables:
+            message: The balcony door has been open for 10 minutes; time to close it.
+            priority: low
   mode: single
 - id: '1789700000010'
   alias: Door Left Open at Night
@@ -1492,6 +1546,17 @@
           'balcony door' if is_state('binary_sensor.balcony_door', 'on') else ''
         ] | select | list %}
         {{ (d | join(' and ')) | capitalize }} {{ 'are' if d | count > 1 else 'is' }} still open.
+  - action: script.turn_on
+    target:
+      entity_id: script.announce
+    data:
+      variables:
+        message: >-
+          {{ ['The front door' if is_state('binary_sensor.front_door', 'on') else '',
+              'the balcony door' if is_state('binary_sensor.balcony_door', 'on') else '']
+             | select | join(' and ') | capitalize }} still open at bedtime.
+        priority: normal
+        ignore_quiet_hours: true
   mode: single
 - id: '1789700000011'
   alias: Cleaning Chores
@@ -1707,4 +1772,60 @@
   - action: switch.toggle
     target:
       entity_id: switch.bedside_outlet
+  mode: single
+- id: '1789700000016'
+  alias: Good Morning
+  description: At the phone's alarm time (04:00-11:00, when home), the Echo in the
+    bedroom says good morning with today's weather and the first calendar event.
+  triggers:
+  - trigger: time
+    at:
+      entity_id: sensor.zflip7_next_alarm
+  conditions:
+  - condition: state
+    entity_id: person.olli
+    state: home
+  - condition: time
+    after: 04:00:00
+    before: '11:00:00'
+  actions:
+  - action: weather.get_forecasts
+    continue_on_error: true
+    target:
+      entity_id: weather.forecast_home
+    data:
+      type: daily
+    response_variable: fc
+  - action: calendar.get_events
+    continue_on_error: true
+    target:
+      entity_id: calendar.salonen_olli_gmail_com
+    data:
+      start_date_time: '{{ now() }}'
+      end_date_time: '{{ today_at(''23:59'') }}'
+    response_variable: cal
+  - variables:
+      today: '{{ fc[''weather.forecast_home''].forecast[0] if fc is defined and fc[''weather.forecast_home'']
+        is defined else none }}'
+      first_event: '{{ (cal[''calendar.salonen_olli_gmail_com''].events | sort(attribute=''start''))[0]
+        if cal is defined and cal[''calendar.salonen_olli_gmail_com''] is defined
+        and cal[''calendar.salonen_olli_gmail_com''].events | count > 0 else none
+        }}'
+  - action: script.turn_on
+    target:
+      entity_id: script.announce
+    data:
+      variables:
+        message: Good morning, time to get up.
+        details: >-
+          {% if today %}Today: {{ today.condition | replace('partlycloudy', 'partly cloudy') | replace('-', ' ') }}, high
+          {{ today.temperature | round(0) | int }} °C, low {{ today.templow | round(0) | int }} °C
+          {%- if today.precipitation | default(0) > 0 %}, {{ today.precipitation }} mm of rain or snow{% endif %}.{% endif %}
+          {% if first_event %}First on the calendar: {{ first_event.summary }}
+          {%- if 'T' in first_event.start %} at {{ as_datetime(first_event.start).strftime('%H:%M') }}{% endif %}.
+          {% else %}Nothing on the calendar today.{% endif %}
+          Mention the weather and the calendar item; it may be two sentences.
+        priority: normal
+        room: bedroom
+        ignore_quiet_hours: true
   mode: single
