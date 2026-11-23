@@ -18,7 +18,9 @@
   mode: single
 - id: '1620771818218'
   alias: AC
-  description: AC on above 25.9 °C, off below 24.5 °C.
+  description: 'Portable AC (summer only, harmless otherwise): on above 25.9 °C while
+    home, off below 24.5 °C. Off after 15 minutes away. Back on when arriving home,
+    or when Android Auto connects while away, if it''s above 25.9 °C.'
   triggers:
   - trigger: numeric_state
     entity_id: sensor.airthings_temperature
@@ -28,23 +30,56 @@
     entity_id: sensor.airthings_temperature
     below: 24.5
     id: cool
+  - trigger: state
+    entity_id: person.olli
+    from: home
+    for:
+      minutes: 15
+    id: away
+  - trigger: state
+    entity_id: person.olli
+    to: home
+    id: coming
+  - trigger: state
+    entity_id: binary_sensor.zflip7_android_auto
+    to: 'on'
+    id: driving
   actions:
   - choose:
     - conditions:
       - condition: trigger
-        id: hot
+        id:
+        - hot
+        - coming
+        - driving
+      - condition: numeric_state
+        entity_id: sensor.airthings_temperature
+        above: 25.9
+      - condition: state
+        entity_id: climate.living_room_ac
+        state: 'off'
+      - condition: template
+        value_template: '{{ is_state(''person.olli'', ''home'') != (trigger.id == ''driving'')
+          }}'
       sequence:
       - action: climate.turn_on
         target:
           entity_id: climate.living_room_ac
     - conditions:
       - condition: trigger
-        id: cool
+        id:
+        - cool
+        - away
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: climate.living_room_ac
+          state: 'off'
       sequence:
       - action: climate.turn_off
         target:
           entity_id: climate.living_room_ac
-  mode: single
+  mode: queued
 - id: '1631559889262'
   alias: Cast to Google Hub
   description: ''
@@ -647,8 +682,8 @@
 - id: '1789593063851'
   alias: Bedroom
   description: 'Bedroom door: lights on when leaving in the morning, fan on when the
-    door closes at night and off when it opens in the morning. Lights off when getting
-    into bed.'
+    door closes at night and off when it opens in the morning. (Lights off at bedtime
+    is in Bedtime.)'
   triggers:
   - trigger: state
     entity_id: binary_sensor.bedroom_door
@@ -660,10 +695,6 @@
     from: 'on'
     to: 'off'
     id: door_closed
-  - trigger: state
-    entity_id: binary_sensor.in_bed
-    to: 'on'
-    id: in_bed
   actions:
   - if:
     - condition: trigger
@@ -698,16 +729,6 @@
     - action: fan.turn_on
       target:
         entity_id: fan.bedroom_fan
-  - if:
-    - condition: trigger
-      id: in_bed
-    - condition: time
-      after: '23:30:00'
-      before: 05:00:00
-    then:
-    - action: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.lights_are_on
   mode: single
 - id: '1789593353880'
   alias: Living Room Remote
@@ -1178,4 +1199,286 @@
   - action: input_boolean.turn_off
     target:
       entity_id: input_boolean.sonos_resume
+  mode: single
+- id: '1789700000005'
+  alias: Water Leak Alarm
+  description: Loud phone alarm (rings through Do Not Disturb) when the leak sensor
+    gets wet, repeated every 5 minutes while it stays wet. A follow-up when it's dry
+    again.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.water_leak_sensor_alarm_moisture
+    from: 'off'
+    to: 'on'
+    id: wet
+  - trigger: state
+    entity_id: binary_sensor.water_leak_sensor_alarm_moisture
+    from: 'on'
+    to: 'off'
+    id: dry
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: wet
+      sequence:
+      - repeat:
+          while:
+          - condition: state
+            entity_id: binary_sensor.water_leak_sensor_alarm_moisture
+            state: 'on'
+          - condition: template
+            value_template: '{{ repeat.index <= 12 }}'
+          sequence:
+          - action: notify.mobile_app_zflip7
+            data:
+              title: Water leak!
+              message: The leak sensor is wet. Check it now.
+              data:
+                tag: water-leak
+                ttl: 0
+                priority: high
+                channel: alarm_stream
+          - delay: 00:05:00
+    - conditions:
+      - condition: trigger
+        id: dry
+      sequence:
+      - action: notify.mobile_app_zflip7
+        data:
+          title: Leak sensor dry
+          message: The leak sensor is dry again.
+          data:
+            tag: water-leak
+  mode: restart
+- id: '1789700000006'
+  alias: Bedtime
+  description: Getting into bed or closing the bedroom door between 22:30 and 04:00
+    (while home, once a night). The bedside lamp comes on warm and dim, everything
+    else goes off, the Sonos pauses, the shade closes, and the wall tablet screen
+    goes off.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.in_bed
+    to: 'on'
+  - trigger: state
+    entity_id: binary_sensor.bedroom_door
+    from: 'on'
+    to: 'off'
+  conditions:
+  - condition: state
+    entity_id: person.olli
+    state: home
+  - condition: time
+    after: '22:30:00'
+    before: 04:00:00
+  - condition: template
+    value_template: '{{ this.attributes.last_triggered is none or now() - this.attributes.last_triggered
+      > timedelta(hours=8) }}'
+  actions:
+  - action: light.turn_on
+    target:
+      entity_id: light.bedside_lamp
+    data:
+      brightness_pct: 25
+      color_temp_kelvin: 2200
+  - action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.lights_are_on
+  - if:
+    - condition: state
+      entity_id: media_player.sonos
+      state: playing
+    then:
+    - action: media_player.media_pause
+      target:
+        entity_id: media_player.sonos
+  - action: cover.set_cover_position
+    target:
+      entity_id: cover.bedroom_shade
+    data:
+      position: 0
+  - action: light.turn_off
+    target:
+      entity_id: light.wall_screen
+  mode: single
+- id: '1789700000007'
+  alias: Vacuum Messages
+  description: Phone message when the Roborock finishes a clean (area and time), or
+    when it gets stuck.
+  triggers:
+  - trigger: state
+    entity_id: vacuum.roborock_s6
+    from: returning
+    to: docked
+    id: done
+  - trigger: state
+    entity_id: vacuum.roborock_s6
+    to: error
+    id: stuck
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: done
+      sequence:
+      - action: notify.mobile_app_zflip7
+        data:
+          title: Vacuuming done
+          message: Cleaned {{ states('sensor.roborock_s6_cleaning_area') }} m² in {{
+            states('sensor.roborock_s6_cleaning_time') | float(0) | round(0) | int }}
+            minutes.
+          data:
+            tag: vacuum
+    - conditions:
+      - condition: trigger
+        id: stuck
+      sequence:
+      - action: notify.mobile_app_zflip7
+        data:
+          title: Vacuum stuck
+          message: 'The Roborock needs help: {{ states(''sensor.roborock_s6_vacuum_error'')
+            | replace(''_'', '' '') }}.'
+          data:
+            tag: vacuum
+  mode: single
+- id: '1789700000008'
+  alias: Wall Tablet Screen
+  description: Screen off after 5 minutes away and at 01:00. Back on when arriving
+    home, or on entryway or living room motion between 06:00 and 22:30. Bedtime also
+    turns it off.
+  triggers:
+  - trigger: state
+    entity_id: person.olli
+    from: home
+    for:
+      minutes: 5
+    id: 'off'
+  - trigger: time
+    at: 01:00:00
+    id: 'off'
+  - trigger: state
+    entity_id: person.olli
+    to: home
+    id: 'on'
+  - trigger: state
+    entity_id:
+    - binary_sensor.front_door_motion
+    - binary_sensor.hallway_motion
+    - binary_sensor.living_room_motion
+    to: 'on'
+    id: motion
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: 'off'
+      sequence:
+      - action: light.turn_off
+        target:
+          entity_id: light.wall_screen
+    - conditions:
+      - condition: or
+        conditions:
+        - condition: trigger
+          id: 'on'
+        - condition: and
+          conditions:
+          - condition: trigger
+            id: motion
+          - condition: time
+            after: 06:00:00
+            before: '22:30:00'
+          - condition: state
+            entity_id: person.olli
+            state: home
+      sequence:
+      - action: light.turn_on
+        target:
+          entity_id: light.wall_screen
+  mode: queued
+- id: '1789700000009'
+  alias: Air It Out
+  description: When the Airthings VOC level stays above 1000 ppb for 15 minutes (08:00-22:00,
+    home, balcony door shut), a nudge to air out. From November to March, a reminder
+    to close the balcony door after 10 minutes. At most once every 3 hours.
+  triggers:
+  - trigger: numeric_state
+    entity_id: sensor.airthings_voc
+    above: 1000
+    for:
+      minutes: 15
+  conditions:
+  - condition: state
+    entity_id: person.olli
+    state: home
+  - condition: state
+    entity_id: binary_sensor.balcony_door
+    state: 'off'
+  - condition: time
+    after: 08:00:00
+    before: '22:00:00'
+  - condition: template
+    value_template: '{{ this.attributes.last_triggered is none or now() - this.attributes.last_triggered
+      > timedelta(hours=3) }}'
+  actions:
+  - action: notify.mobile_app_zflip7
+    data:
+      title: Stale air
+      message: VOCs are at {{ states('sensor.airthings_voc') | int(0) }} ppb. Open
+        the balcony door for a bit?
+      data:
+        tag: air-out
+  - if:
+    - condition: template
+      value_template: '{{ now().month in [11, 12, 1, 2, 3] }}'
+    then:
+    - wait_for_trigger:
+      - trigger: state
+        entity_id: binary_sensor.balcony_door
+        to: 'on'
+      timeout: 00:30:00
+      continue_on_timeout: false
+    - wait_for_trigger:
+      - trigger: state
+        entity_id: binary_sensor.balcony_door
+        to: 'off'
+      timeout: 00:10:00
+    - if:
+      - condition: state
+        entity_id: binary_sensor.balcony_door
+        state: 'on'
+      then:
+      - action: notify.mobile_app_zflip7
+        data:
+          title: Balcony door
+          message: It's been 10 minutes. Time to close the balcony door.
+          data:
+            tag: air-out
+  mode: single
+- id: '1789700000010'
+  alias: Door Left Open at Night
+  description: At 23:30, a phone message if the front or balcony door is still open.
+  triggers:
+  - trigger: time
+    at: '23:30:00'
+  conditions:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.front_door
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.balcony_door
+      state: 'on'
+  actions:
+  - action: notify.mobile_app_zflip7
+    data:
+      title: Door open
+      message: >-
+        {% set d = [
+          'front door' if is_state('binary_sensor.front_door', 'on') else '',
+          'balcony door' if is_state('binary_sensor.balcony_door', 'on') else ''
+        ] | select | list %}
+        {{ (d | join(' and ')) | capitalize }} {{ 'are' if d | count > 1 else 'is' }} still open.
   mode: single
