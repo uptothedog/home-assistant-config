@@ -104,3 +104,143 @@ pull_config:
         message: '{{ (pull.stderr ~ '' '' ~ pull.stdout) | trim | truncate(250) }}'
         data:
           tag: pull-config
+announce:
+  alias: Announce
+  description: Speaks a message in the room Olli is in. The AI rewords it so it
+    isn't the same every time (urgent messages are read as written). Living room
+    = Sonos (music dips and comes back), bedroom = Echo. Nothing is spoken when
+    Olli is away, and between 23:00 and 07:00 only urgent messages are spoken.
+  icon: mdi:bullhorn
+  mode: queued
+  max: 10
+  fields:
+    message:
+      name: Message
+      description: What happened, in plain words. Also used as-is if the AI fails.
+      required: true
+      example: The washing machine is done.
+      selector:
+        text:
+    details:
+      name: Details
+      description: Extra facts the AI can work in.
+      example: The cycle took 1 hour 42 minutes.
+      selector:
+        text:
+    priority:
+      name: Priority
+      description: urgent is read word for word, on both speakers, louder, even
+        in quiet hours.
+      default: normal
+      selector:
+        select:
+          options:
+          - low
+          - normal
+          - urgent
+    room:
+      name: Room
+      default: auto
+      selector:
+        select:
+          options:
+          - auto
+          - living_room
+          - bedroom
+          - both
+    ignore_quiet_hours:
+      name: Ignore quiet hours
+      default: false
+      selector:
+        boolean:
+  sequence:
+  - variables:
+      prio: '{{ priority | default(''normal'') }}'
+      where: >-
+        {% set r = room | default('auto') %}
+        {% set m = states.binary_sensor.living_room_motion %}
+        {% if r != 'auto' %}{{ r }}
+        {% elif prio == 'urgent' %}both
+        {% elif is_state('binary_sensor.in_bed', 'on') %}bedroom
+        {% elif (now().hour * 60 + now().minute >= 22 * 60 + 30 or now().hour < 9)
+             and m is not none and m.state == 'off'
+             and now() - m.last_changed > timedelta(minutes=20) %}bedroom
+        {% else %}living_room{% endif %}
+      quiet: '{{ now().hour >= 23 or now().hour < 7 }}'
+      night: '{{ now().hour >= 22 or now().hour < 8 }}'
+      text: '{{ message }}'
+  - condition: state
+    entity_id: person.olli
+    state: home
+  - condition: template
+    value_template: '{{ not quiet or prio == ''urgent'' or ignore_quiet_hours | default(false)
+      }}'
+  - if:
+    - condition: template
+      value_template: '{{ prio != ''urgent'' }}'
+    then:
+    - action: ai_task.generate_data
+      continue_on_error: true
+      data:
+        task_name: announce
+        entity_id: ai_task.openai_ai_task
+        instructions: >-
+          You are the voice of Olli's home. Write one short sentence to be read
+          aloud (two at most if there's more to say, under 40 words in total)
+          that tells Olli: {{ message }}
+          {% if details | default('') %}Details: {{ details }}{% endif %}
+
+          Context, use only if it fits: it's {{ now().strftime('%A %H:%M') }},
+          {{ state_attr('weather.forecast_home', 'temperature') }} °C and
+          {{ states('weather.forecast_home') | replace('-', ' ') }} outside.
+
+          Tone: neutral and clear; a light touch of playfulness is fine
+          {%- if night %}, but keep it calm, it's night{% endif %}.
+          Use Olli's name only now and then. Write numbers and units the way
+          they are spoken. No emojis, lists, abbreviations or quotation marks.
+          Don't reuse the wording of the previous announcement: "{{ states('input_text.last_announcement') }}".
+          Reply with only the sentence.
+      response_variable: ai
+    - variables:
+        text: '{{ ai.data | trim if ai is defined and ai.data is string and ai.data
+          | trim | length > 0 else message }}'
+  - variables:
+      sonos_volume: '{{ 50 if prio == ''urgent'' else (25 if night else 35) }}'
+      echo_volume: '{{ 0.7 if prio == ''urgent'' else (0.3 if night else 0.45) }}'
+  - parallel:
+    - if:
+      - condition: template
+        value_template: '{{ where in [''living_room'', ''both''] }}'
+      then:
+      - action: media_player.play_media
+        continue_on_error: true
+        target:
+          entity_id: media_player.sonos
+        data:
+          media_content_id: media-source://tts/tts.home_assistant_cloud?message={{
+            text | urlencode }}&language=en-IE&voice=EmilyNeural
+          media_content_type: music
+          announce: true
+          extra:
+            volume: '{{ sonos_volume }}'
+    - if:
+      - condition: template
+        value_template: '{{ where in [''bedroom'', ''both''] }}'
+      then:
+      - action: media_player.volume_set
+        continue_on_error: true
+        target:
+          entity_id: media_player.olli_s_echo_dot
+        data:
+          volume_level: '{{ echo_volume }}'
+      - action: notify.alexa_media_olli_s_echo_dot
+        continue_on_error: true
+        data:
+          message: '{{ text }}'
+          data:
+            type: tts
+  - action: input_text.set_value
+    target:
+      entity_id: input_text.last_announcement
+    data:
+      value: '{{ text[:255] }}'

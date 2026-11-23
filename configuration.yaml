@@ -18,7 +18,13 @@ input_boolean:
   sonos_resume:
     name: Sonos paused on leaving
     icon: mdi:play-pause
-  
+
+input_text:
+  last_announcement:
+    name: Last announcement
+    max: 255
+    icon: mdi:bullhorn
+
 ifttt:
   key: !secret ifttt_api
   
