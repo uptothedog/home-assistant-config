@@ -1696,14 +1696,19 @@
 - id: '1789700000015'
   alias: Bedside Outlet
   description: The second bedside lamp (switch.bedside_outlet) comes on whenever the
-    main bedside lamp turns on, except during the Wake-up Light fade. A short press
-    on the Aqara button (ButtonAqara) turns it off.
+    main bedside lamp turns on (except during the Wake-up Light fade) and off when it
+    turns off. A short press on the Aqara button (ButtonAqara) turns it off.
   triggers:
   - trigger: state
     entity_id: light.bedside_lamp
     from: 'off'
     to: 'on'
     id: lamp_on
+  - trigger: state
+    entity_id: light.bedside_lamp
+    from: 'on'
+    to: 'off'
+    id: lamp_off
   - trigger: device
     device_id: e96474aad99d420b04e16820f046de66
     domain: zha
@@ -1724,7 +1729,9 @@
           entity_id: switch.bedside_outlet
     - conditions:
       - condition: trigger
-        id: button
+        id:
+        - button
+        - lamp_off
       sequence:
       - action: switch.turn_off
         target:
