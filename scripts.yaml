@@ -235,6 +235,15 @@ announce:
           target:
             entity_id: media_player.sonos
           data:
+            media_content_id: /local/sfx/tts_start.wav
+            media_content_type: music
+        - delay:
+            milliseconds: 1200
+        - action: media_player.play_media
+          continue_on_error: true
+          target:
+            entity_id: media_player.sonos
+          data:
             media_content_id: '{{ tts_url }}'
             media_content_type: music
         - delay: 00:00:02
@@ -244,6 +253,18 @@ announce:
           target:
             entity_id: media_player.sonos
         else:
+        - action: media_player.play_media
+          continue_on_error: true
+          target:
+            entity_id: media_player.sonos
+          data:
+            media_content_id: /local/sfx/tts_start.wav
+            media_content_type: music
+            announce: true
+            extra:
+              volume: '{{ sonos_volume }}'
+        - delay:
+            milliseconds: 1200
         - action: media_player.play_media
           continue_on_error: true
           target:
