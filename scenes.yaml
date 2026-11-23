@@ -259,18 +259,11 @@
       friendly_name: Sofa Light
       supported_features: 4
       state: 'on'
-    switch.spare_outlet:
-      device_class: outlet
-      icon: mdi:wall-sconce-round-variant
-      friendly_name: Outlet Wall Bulb
-      state: 'off'
   icon: mdi:clock-time-nine
   metadata:
     switch.tv_stand_led:
       entity_only: true
     switch.shelf_outlet:
-      entity_only: true
-    switch.spare_outlet:
       entity_only: true
 - id: '1618154581514'
   name: Evening
@@ -487,11 +480,6 @@
     switch.tv_stand_led:
       friendly_name: Outlet Tv Stand LED
       state: 'on'
-    switch.spare_outlet:
-      device_class: outlet
-      icon: mdi:wall-sconce-round-variant
-      friendly_name: Outlet Wall Bulb
-      state: 'on'
     light.sofa_light:
       min_color_temp_kelvin: 2200
       max_color_temp_kelvin: 6500
@@ -564,8 +552,6 @@
     switch.shelf_outlet:
       entity_only: true
     switch.tv_stand_led:
-      entity_only: true
-    switch.spare_outlet:
       entity_only: true
 - id: '1618154758340'
   name: Late Night
@@ -748,11 +734,6 @@
     switch.shelf_outlet:
       friendly_name: Outlet Shelf
       state: 'on'
-    switch.spare_outlet:
-      device_class: outlet
-      icon: mdi:wall-sconce-round-variant
-      friendly_name: Outlet Wall Bulb
-      state: 'on'
     switch.tv_stand_led:
       friendly_name: Outlet Tv Stand LED
       state: 'off'
@@ -822,8 +803,6 @@
   icon: mdi:clock-time-twelve
   metadata:
     switch.shelf_outlet:
-      entity_only: true
-    switch.spare_outlet:
       entity_only: true
     switch.tv_stand_led:
       entity_only: true
@@ -1132,11 +1111,6 @@
     switch.shelf_outlet:
       friendly_name: Outlet Shelf
       state: 'off'
-    switch.spare_outlet:
-      device_class: outlet
-      icon: mdi:wall-sconce-round-variant
-      friendly_name: Outlet Wall Bulb
-      state: 'off'
     switch.tv_stand_led:
       friendly_name: Outlet Tv Stand LED
       state: 'off'
@@ -1260,8 +1234,6 @@
       state: unavailable
   metadata:
     switch.shelf_outlet:
-      entity_only: true
-    switch.spare_outlet:
       entity_only: true
     switch.tv_stand_led:
       entity_only: true
@@ -1485,11 +1457,6 @@
     switch.shelf_outlet:
       friendly_name: Outlet Shelf
       state: 'off'
-    switch.spare_outlet:
-      device_class: outlet
-      icon: mdi:wall-sconce-round-variant
-      friendly_name: Outlet Christmas tree
-      state: 'off'
     switch.tv_stand_led:
       friendly_name: Outlet Tv Stand LED
       state: 'off'
@@ -1542,8 +1509,6 @@
   icon: mdi:movie
   metadata:
     switch.shelf_outlet:
-      entity_only: true
-    switch.spare_outlet:
       entity_only: true
     switch.tv_stand_led:
       entity_only: true
@@ -1838,11 +1803,6 @@
       - 0
       friendly_name: Sofa Light
       supported_features: 4
-      state: 'on'
-    switch.spare_outlet:
-      device_class: outlet
-      icon: mdi:wall-sconce-round-variant
-      friendly_name: Outlet Christmas tree
       state: 'on'
     switch.shelf_outlet:
       friendly_name: Outlet Shelf
@@ -2270,11 +2230,6 @@
       friendly_name: Sofa Light
       supported_features: 4
       state: 'on'
-    switch.spare_outlet:
-      device_class: outlet
-      icon: mdi:wall-sconce-round-variant
-      friendly_name: Outlet Wall Bulb
-      state: 'off'
     switch.shelf_outlet:
       friendly_name: Outlet Shelf
       state: 'off'
