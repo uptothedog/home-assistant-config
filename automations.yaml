@@ -653,9 +653,8 @@
     - conditions:
       - condition: trigger
         id: schedule_off
-      - condition: state
-        entity_id: binary_sensor.balcony_door
-        state: 'off'
+      - condition: template
+        value_template: '{{ not is_state(''binary_sensor.balcony_door'', ''on'') }}'
       sequence:
       - action: switch.turn_off
         target:
