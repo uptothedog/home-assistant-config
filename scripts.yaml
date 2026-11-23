@@ -205,7 +205,7 @@ announce:
         text: '{{ ai.data | trim if ai is defined and ai.data is string and ai.data
           | trim | length > 0 else message }}'
   - variables:
-      sonos_volume: '{{ 50 if prio == ''urgent'' else (25 if night else 35) }}'
+      sonos_volume: '{{ 60 if prio == ''urgent'' else (35 if night else 45) }}'
       echo_volume: '{{ 0.7 if prio == ''urgent'' else (0.3 if night else 0.45) }}'
   - parallel:
     - if:
