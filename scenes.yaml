@@ -878,64 +878,6 @@
       icon: mdi:shield-home
       supported_features: 2
       state: disarmed
-- id: '1620654987525'
-  name: Hub Arming
-  entities:
-    light.mi_control_hub2_light:
-      supported_color_modes:
-      - hs
-      color_mode: hs
-      brightness: 255
-      hs_color:
-      - 240
-      - 100
-      rgb_color:
-      - 0
-      - 0
-      - 255
-      xy_color:
-      - 0.136
-      - 0.04
-      friendly_name: Mi Control Hub2 Light
-      supported_features: 17
-      state: 'on'
-    alarm_control_panel.mi_control_hub2_alarm:
-      code_format:
-      changed_by:
-      code_arm_required: true
-      friendly_name: Mi Control Hub2 Alarm
-      icon: mdi:shield-home
-      supported_features: 2
-      state: disarmed
-- id: '1620655058176'
-  name: Hub Done
-  entities:
-    light.mi_control_hub2_light:
-      supported_color_modes:
-      - hs
-      color_mode: hs
-      brightness: 255
-      hs_color:
-      - 105.176
-      - 100
-      rgb_color:
-      - 63
-      - 255
-      - 0
-      xy_color:
-      - 0.199
-      - 0.724
-      friendly_name: Mi Control Hub2 Light
-      supported_features: 17
-      state: 'on'
-    alarm_control_panel.mi_control_hub2_alarm:
-      code_format:
-      changed_by:
-      code_arm_required: true
-      friendly_name: Mi Control Hub2 Alarm
-      icon: mdi:shield-home
-      supported_features: 2
-      state: disarmed
 - id: '1620655151525'
   name: Hub Caution
   entities:
@@ -982,77 +924,6 @@
       icon: mdi:shield-home
       supported_features: 2
       state: disarmed
-- id: '1620674352195'
-  name: Strip On
-  entities:
-    light.kitchen_led:
-      effect_list:
-      - 0 Basic
-      supported_color_modes:
-      - rgb
-      color_mode: rgb
-      brightness: 255
-      hs_color:
-      - 13.043
-      - 99.216
-      rgb_color:
-      - 255
-      - 57
-      - 2
-      xy_color:
-      - 0.681
-      - 0.316
-      effect: 0 Basic
-      icon: mdi:string-lights
-      friendly_name: Kitchen LED
-      supported_features: 4
-      state: 'on'
-  metadata: {}
-- id: '1633087451169'
-  name: Strip Off
-  entities:
-    light.kitchen_led:
-      effect_list:
-      - 0 Basic
-      supported_color_modes:
-      - rgb
-      color_mode:
-      brightness:
-      hs_color:
-      rgb_color:
-      xy_color:
-      effect:
-      icon: mdi:string-lights
-      friendly_name: Kitchen LED
-      supported_features: 4
-      state: 'off'
-  metadata: {}
-- id: '1633097560629'
-  name: Strip On (Night)
-  entities:
-    light.kitchen_led:
-      effect_list:
-      - 0 Basic
-      supported_color_modes:
-      - rgb
-      color_mode: rgb
-      brightness: 255
-      hs_color:
-      - 13.043
-      - 99.216
-      rgb_color:
-      - 255
-      - 57
-      - 2
-      xy_color:
-      - 0.681
-      - 0.316
-      effect: 0 Basic
-      icon: mdi:string-lights
-      friendly_name: Kitchen LED
-      supported_features: 4
-      state: 'on'
-  metadata: {}
 - id: '1660492458197'
   name: All Off
   entities:
@@ -1133,7 +1004,7 @@
     switch.rope_light:
       friendly_name: Light Bulb Rope
       state: 'off'
-    light.signify_netherlands_b_v_lcl001_huelight:
+    light.desk_strip:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6535
       min_mireds: 153
@@ -1415,7 +1286,7 @@
       friendly_name: Light Kitchen
       supported_features: 44
       state: 'off'
-    light.signify_netherlands_b_v_lcl001_huelight:
+    light.desk_strip:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6535
       effect_list:
@@ -2019,7 +1890,7 @@
       friendly_name: Cololight
       supported_features: 4
       state: 'on'
-    light.signify_netherlands_b_v_lcl001_huelight:
+    light.desk_strip:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6535
       min_mireds: 153
@@ -2085,7 +1956,7 @@
       friendly_name: Cololight
       supported_features: 4
       state: 'off'
-    light.signify_netherlands_b_v_lcl001_huelight:
+    light.desk_strip:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6535
       min_mireds: 153
@@ -2248,7 +2119,7 @@
       friendly_name: Cololight
       supported_features: 4
       state: 'on'
-    light.signify_netherlands_b_v_lcl001_huelight:
+    light.desk_strip:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6535
       min_mireds: 153
