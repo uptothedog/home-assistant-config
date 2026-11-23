@@ -237,6 +237,8 @@ announce:
           data:
             media_content_id: /local/sfx/tts_start.wav
             media_content_type: music
+        - delay:
+            milliseconds: 300
         - action: media_player.play_media
           continue_on_error: true
           target:
@@ -261,6 +263,8 @@ announce:
             announce: true
             extra:
               volume: '{{ sonos_volume }}'
+        - delay:
+            milliseconds: 300
         - action: media_player.play_media
           continue_on_error: true
           target:
