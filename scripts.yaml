@@ -73,3 +73,34 @@ cycle_lights_scene:
     data:
       scene: '{{ next_scene }}'
       passes: 1
+pull_config:
+  alias: Pull Config
+  description: Pulls the latest config from GitHub, reloads automations, scripts,
+    scenes, helpers and templates, and sends the result to the phone.
+  icon: mdi:source-pull
+  mode: single
+  sequence:
+  - action: shell_command.git_pull
+    response_variable: pull
+  - if:
+    - condition: template
+      value_template: '{{ pull.returncode == 0 }}'
+    then:
+    - action: automation.reload
+    - action: scene.reload
+    - action: input_boolean.reload
+    - action: template.reload
+    - action: notify.mobile_app_zflip7
+      data:
+        title: Config pulled
+        message: '{{ (pull.stdout | trim).split(''\n'') | last | truncate(200) }}'
+        data:
+          tag: pull-config
+    - action: script.reload
+    else:
+    - action: notify.mobile_app_zflip7
+      data:
+        title: Config pull failed
+        message: '{{ (pull.stderr ~ '' '' ~ pull.stdout) | trim | truncate(250) }}'
+        data:
+          tag: pull-config

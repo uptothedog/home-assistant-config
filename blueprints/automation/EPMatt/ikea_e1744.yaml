@@ -1,4 +1,6 @@
 blueprint:
+  # Local edit 2026-11-23: removed the Zigbee2MQTT device triggers (remotes are on
+  # ZHA; those triggers logged 'Error setting up trigger' on every reload).
   name: Controller - IKEA E1744 SYMFONISK Rotary Remote
   description: "# Controller - IKEA E1744 SYMFONISK Rotary Remote\n\nController automation
     for executing any kind of action triggered by the provided IKEA E1744 SYMFONISK
@@ -221,36 +223,6 @@ variables:
 mode: restart
 max_exceeded: silent
 triggers:
-- trigger: device
-  domain: mqtt
-  device_id: !input controller_device
-  type: action
-  subtype: brightness_move_down
-- trigger: device
-  domain: mqtt
-  device_id: !input controller_device
-  type: action
-  subtype: brightness_stop
-- trigger: device
-  domain: mqtt
-  device_id: !input controller_device
-  type: action
-  subtype: brightness_move_up
-- trigger: device
-  domain: mqtt
-  device_id: !input controller_device
-  type: action
-  subtype: toggle
-- trigger: device
-  domain: mqtt
-  device_id: !input controller_device
-  type: action
-  subtype: brightness_step_up
-- trigger: device
-  domain: mqtt
-  device_id: !input controller_device
-  type: action
-  subtype: brightness_step_down
 - trigger: event
   event_type:
   - deconz_event

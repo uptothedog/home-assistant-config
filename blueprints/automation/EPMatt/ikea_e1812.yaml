@@ -1,4 +1,6 @@
 blueprint:
+  # Local edit 2026-11-23: removed the Zigbee2MQTT device triggers (remotes are on
+  # ZHA; those triggers logged 'Error setting up trigger' on every reload).
   name: Controller - IKEA E1812 TRÅDFRI Shortcut button
   description: "# Controller - IKEA E1812 TRÅDFRI Shortcut button\n\nController automation
     for executing any kind of action triggered by the provided IKEA E1812 TRÅDFRI
@@ -141,30 +143,6 @@ variables:
 mode: single
 max_exceeded: silent
 triggers:
-- trigger: device
-  id: z2m-button-short
-  domain: mqtt
-  device_id: !input controller_device
-  type: action
-  subtype: 'on'
-- trigger: device
-  id: z2m-button-long
-  domain: mqtt
-  device_id: !input controller_device
-  type: action
-  subtype: brightness_move_up
-- trigger: device
-  id: z2m-button-release
-  domain: mqtt
-  device_id: !input controller_device
-  type: action
-  subtype: brightness_stop
-- trigger: device
-  id: z2m-button-double
-  domain: mqtt
-  device_id: !input controller_device
-  type: action
-  subtype: 'off'
 - trigger: event
   id: zha-button-short
   event_type: zha_event

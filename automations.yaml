@@ -134,7 +134,7 @@
       - condition: trigger
         id: vacuum
       - condition: state
-        entity_id: input_boolean.vacuumed_today_2
+        entity_id: input_boolean.vacuumed_today
         state: 'off'
       sequence:
       - action: vacuum.start
@@ -142,7 +142,7 @@
           entity_id: vacuum.roborock_s6
       - action: input_boolean.turn_on
         target:
-          entity_id: input_boolean.vacuumed_today_2
+          entity_id: input_boolean.vacuumed_today
     - conditions:
       - condition: trigger
         id: lights
@@ -161,7 +161,7 @@
       sequence:
       - action: input_boolean.turn_off
         target:
-          entity_id: input_boolean.vacuumed_today_2
+          entity_id: input_boolean.vacuumed_today
   mode: queued
 - id: '1660258947319'
   alias: Controller - IKEA E1812 TRÅDFRI Shortcut button

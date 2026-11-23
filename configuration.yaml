@@ -52,6 +52,20 @@ light:
 
   
 template:
+  # Withings only reports the bed state when it changes, and shows "unknown"
+  # in between (and after restarts). This copy keeps the last real value.
+  - triggers:
+      - trigger: state
+        entity_id: binary_sensor.withings_in_bed
+        to:
+          - "on"
+          - "off"
+    binary_sensor:
+      - name: In Bed
+        unique_id: in_bed_stable
+        icon: mdi:bed
+        state: "{{ trigger.to_state.state == 'on' }}"
+
   - sensor:
       - name: "Date and time"
         state: "{{ as_timestamp(states('sensor.date_time_iso')) | timestamp_custom('%B %d, %H:%M') }}"
@@ -101,5 +115,12 @@ frontend:
 
     
 my:
+
+# Run by script.pull_config (the "Pull Config" script) to update /config from GitHub.
+shell_command:
+  git_pull: >-
+    git -C /config -c safe.directory=/config
+    -c core.sshCommand='ssh -i /config/.ssh/id_ed25519 -o UserKnownHostsFile=/config/.ssh/known_hosts -o StrictHostKeyChecking=accept-new'
+    pull --ff-only
 
     
