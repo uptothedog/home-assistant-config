@@ -5,7 +5,7 @@
  * No dependencies, no build step. Midnight design system: AMOLED black, honey #FFC857,
  * Mona Sans + Spline Sans Mono.
  */
-const MMC_VERSION = "1.0.0";
+const MMC_VERSION = "1.1.0";
 
 const F = {
   PAUSE: 1, SEEK: 2, VOLUME_SET: 4, VOLUME_MUTE: 8, PREVIOUS: 16, NEXT: 32,
@@ -65,6 +65,47 @@ function navigateTo(path) {
   const url = search && path.indexOf("?") === -1 ? path + search : path;
   history.pushState(null, "", url);
   window.dispatchEvent(new CustomEvent("location-changed", { bubbles: true, composed: true, detail: { replace: false } }));
+}
+
+/* Same as wall-card's hide_header: true/"always", "fully" (inside Fully Kiosk),
+   "kiosk" (URL had ?kiosk this session), "auto" (either). Edit mode always shows it. */
+function mmcShouldHideHeader(mode) {
+  if (!mode) return false;
+  if (/[?&]edit=1\b/.test(window.location.search)) return false;
+  const inFully = typeof window.fully !== "undefined";
+  let marked = /[?&]kiosk\b/.test(window.location.search);
+  try {
+    if (marked) sessionStorage.setItem("wall-card-kiosk", "1");
+    else marked = sessionStorage.getItem("wall-card-kiosk") === "1";
+  } catch (e) { /* storage blocked */ }
+  const m = String(mode);
+  if (mode === true || m === "true" || m === "always") return true;
+  if (m === "fully") return inFully;
+  if (m === "kiosk") return marked;
+  if (m === "auto") return inFully || marked;
+  return false;
+}
+
+/* Same style element id as wall-card, so the two cards share one header switch. */
+function mmcSetHeaderHidden(hide) {
+  try {
+    const main = document.querySelector("home-assistant")?.shadowRoot?.querySelector("home-assistant-main")?.shadowRoot;
+    const panel = main?.querySelector("ha-panel-lovelace") || main?.querySelector("partial-panel-resolver")?.querySelector("ha-panel-lovelace");
+    const root = panel?.shadowRoot?.querySelector("hui-root")?.shadowRoot;
+    if (!root) return;
+    const existing = root.getElementById("wall-card-kiosk");
+    if (hide && !existing) {
+      const style = document.createElement("style");
+      style.id = "wall-card-kiosk";
+      style.textContent =
+        ":host { --header-height: 0px !important; }" +
+        ".header, app-header, ha-app-layout > app-header { display: none !important; }" +
+        "#view, hui-view, .view { padding-top: 0 !important; min-height: 100vh !important; }";
+      root.appendChild(style);
+    } else if (!hide && existing) {
+      existing.remove();
+    }
+  } catch (e) { /* best effort */ }
 }
 
 const STYLE = `
@@ -337,6 +378,13 @@ class MidnightMusicCard extends HTMLElement {
     // the shift step comes from the clock, so every page (wall-card too) moves together
     if (this._config?.burn_in_protection) this._burn = setInterval(() => this._burnIn(), 30 * 1000);
     this._burnIn();
+    clearInterval(this._hdr); this._hdr = null;
+    if (this._config?.hide_header) {
+      // re-checked every second so edit mode brings the header straight back
+      const apply = () => mmcSetHeaderHidden(mmcShouldHideHeader(this._config?.hide_header));
+      apply();
+      this._hdr = setInterval(apply, 1000);
+    }
     this._navGoing = false;
     this._resetNav();
     this._scheduleFit();
@@ -344,6 +392,7 @@ class MidnightMusicCard extends HTMLElement {
   disconnectedCallback() {
     clearInterval(this._tick); this._tick = null;
     clearInterval(this._burn); this._burn = null;
+    clearInterval(this._hdr); this._hdr = null;
     window.removeEventListener("resize", this._onResize);
     window.removeEventListener("orientationchange", this._onResize);
   }
