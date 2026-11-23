@@ -1344,9 +1344,9 @@
   mode: single
 - id: '1789700000008'
   alias: Wall Tablet Screen
-  description: Screen off after 5 minutes away and at 01:00. Back on when arriving
-    home, or on entryway or living room motion between 06:00 and 22:30. Bedtime also
-    turns it off.
+  description: Screen off after 5 minutes away and at 01:00. On at 07:00 when home,
+    when arriving home, or on entryway or living room motion between 06:00 and 22:30.
+    Bedtime also turns it off.
   triggers:
   - trigger: state
     entity_id: person.olli
@@ -1361,6 +1361,9 @@
     entity_id: person.olli
     to: home
     id: 'on'
+  - trigger: time
+    at: 07:00:00
+    id: morning
   - trigger: state
     entity_id:
     - binary_sensor.front_door_motion
@@ -1382,6 +1385,13 @@
         conditions:
         - condition: trigger
           id: 'on'
+        - condition: and
+          conditions:
+          - condition: trigger
+            id: morning
+          - condition: state
+            entity_id: person.olli
+            state: home
         - condition: and
           conditions:
           - condition: trigger
