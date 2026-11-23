@@ -122,5 +122,7 @@ shell_command:
     git -C /config -c safe.directory=/config
     -c core.sshCommand='ssh -i /config/.ssh/id_ed25519 -o UserKnownHostsFile=/config/.ssh/known_hosts -o StrictHostKeyChecking=accept-new'
     pull --ff-only
+  # Run nightly by the "Back Up UI Edits" automation.
+  backup_ui_edits: sh /config/shell/backup_ui_edits.sh
 
     
