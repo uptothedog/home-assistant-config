@@ -60,8 +60,8 @@
         entity_id: climate.living_room_ac
         state: 'off'
       - condition: template
-        value_template: '{{ is_state(''person.olli'', ''home'') != (trigger.id == ''driving'')
-          }}'
+        value_template: '{{ is_state(''person.olli'', ''home'') != (trigger.id ==
+          ''driving'') }}'
       sequence:
       - action: climate.turn_on
         target:
@@ -92,8 +92,9 @@
       view: hub
 - id: '1634049171320'
   alias: Leaving Home
-  description: Pause the Sonos when leaving (Welcome Home resumes it), vacuum after 10 min away (once a day),
-    lights off after 15 min away. Resets the vacuum flag at 07:00.
+  description: Pause the Sonos when leaving (Welcome Home resumes it), vacuum after
+    10 min away (once a day), lights off after 15 min away. Resets the vacuum flag
+    at 07:00.
   triggers:
   - trigger: state
     entity_id: person.olli
@@ -376,11 +377,11 @@
           value: Nothing currently needs your attention.
     default:
     - variables:
-        message: "{{ {\n  'water_leak': 'Water leak detected.',\n  'bedroom_too_hot':\
-          \ 'Bedroom is too hot.',\n  'alarm_triggered': 'Alarm was triggered at home.',\n\
-          \  'linen_change_due': 'Bedsheets due for change.',\n  'low_battery': 'Following\
-          \ batteries are low: ' ~ (trigger.event.data.sensors | default('') if trigger.platform\
-          \ == 'event' else '')\n}[trigger.id] | truncate(100, true, '') }}"
+        message: "{{ {\n  'water_leak': 'Water leak detected.',\n  'bedroom_too_hot':
+          'Bedroom is too hot.',\n  'alarm_triggered': 'Alarm was triggered at home.',\n
+          \ 'linen_change_due': 'Bedsheets due for change.',\n  'low_battery': 'Following
+          batteries are low: ' ~ (trigger.event.data.sensors | default('') if trigger.platform
+          == 'event' else '')\n}[trigger.id] | truncate(100, true, '') }}"
     - action: input_text.set_value
       target:
         entity_id:
@@ -634,11 +635,6 @@
     from: 'on'
     to: 'off'
     id: closed
-  variables:
-    winter_season: '{% set md = now().month * 100 + now().day %}{{ md >= 1115 or
-      md <= 201 }}'
-    in_schedule: '{{ winter_season and today_at(''19:00'') <= now() < today_at(''22:30'')
-      }}'
   actions:
   - choose:
     - conditions:
@@ -664,7 +660,7 @@
         id: opened
       - condition: time
         after: '21:00:00'
-        before: '05:00:00'
+        before: 05:00:00
       sequence:
       - action: switch.turn_on
         target:
@@ -678,7 +674,13 @@
       - action: switch.turn_off
         target:
           entity_id: switch.outdoor_outlet
-  mode: single
+  variables:
+    winter_season: '{% set md = now().month * 100 + now().day %}{{ md >= 1115 or md
+      <= 201 }}'
+    in_schedule: '{{ winter_season and today_at(''19:00'') <= now() < today_at(''22:30'')
+      }}'
+  mode: queued
+  max: 10
 - id: '1789593063851'
   alias: Bedroom
   description: 'Bedroom door: lights on when leaving in the morning, fan on when the
@@ -995,32 +997,81 @@
   variables:
     threshold: 20
     batteries:
-      sensor.airthings_battery: [Airthings, 3× AAA]
-      sensor.shortcut_button_battery: [Shortcut button, CR2032]
-      sensor.entryway_remote_battery: [Entryway remote, CR2032]
-      sensor.bedroom_remote_battery: [Bedroom remote, 2× AAA]
-      sensor.symfonisk_remote_battery: [Symfonisk remote, CR2032]
-      sensor.workdesk_button_battery: [Workdesk button, CR2032]
-      sensor.hidden_switch_button_battery: [Hidden switch, CR2032]
-      sensor.lumi_lumi_sensor_switch_battery: [Aqara button, CR2032]
-      sensor.closet_button_battery: [Closet button, CR2032]
-      sensor.front_door_sensor_battery: [Front door sensor, CR1632]
-      sensor.balcony_door_sensor_battery: [Balcony door sensor, CR1632]
-      sensor.bedroom_door_sensor_battery: [Bedroom door sensor, CR1632]
-      sensor.electrical_cabinet_sensor_battery: [Electrical cabinet sensor, CR1632]
-      sensor.front_door_motion_battery: [Front door motion, CR2450]
-      sensor.hallway_motion_battery: [Hallway motion, CR2450]
-      sensor.inner_motion_battery: [Inner motion, CR2450]
-      sensor.living_room_motion_battery: [Living room motion, CR2450]
-      sensor.bedroom_sensor_battery: [Bedroom temperature sensor, CR2032]
-      sensor.desk_chair_battery: [Desk chair sensor, CR2032]
-      sensor.washing_machine_battery_2: [Washing machine sensor, CR2032]
-      sensor.water_leak_sensor_alarm_battery: [Water leak sensor, CR2032 (some versions
-          take 2× AAA)]
-      sensor.bot_4f21_battery: [SwitchBot 4f21, CR2]
-      sensor.bot_b8cb_battery: [SwitchBot b8cb, CR2]
-      sensor.keypad_v2_battery_level: [Ring keypad, recharge over USB]
-      sensor.bedroom_shade_battery: [Bedroom shade, recharge with the Soma charger]
+      sensor.airthings_battery:
+      - Airthings
+      - 3× AAA
+      sensor.shortcut_button_battery:
+      - Shortcut button
+      - CR2032
+      sensor.entryway_remote_battery:
+      - Entryway remote
+      - CR2032
+      sensor.bedroom_remote_battery:
+      - Bedroom remote
+      - 2× AAA
+      sensor.symfonisk_remote_battery:
+      - Symfonisk remote
+      - CR2032
+      sensor.workdesk_button_battery:
+      - Workdesk button
+      - CR2032
+      sensor.hidden_switch_button_battery:
+      - Hidden switch
+      - CR2032
+      sensor.lumi_lumi_sensor_switch_battery:
+      - Aqara button
+      - CR2032
+      sensor.closet_button_battery:
+      - Closet button
+      - CR2032
+      sensor.front_door_sensor_battery:
+      - Front door sensor
+      - CR1632
+      sensor.balcony_door_sensor_battery:
+      - Balcony door sensor
+      - CR1632
+      sensor.bedroom_door_sensor_battery:
+      - Bedroom door sensor
+      - CR1632
+      sensor.electrical_cabinet_sensor_battery:
+      - Electrical cabinet sensor
+      - CR1632
+      sensor.front_door_motion_battery:
+      - Front door motion
+      - CR2450
+      sensor.hallway_motion_battery:
+      - Hallway motion
+      - CR2450
+      sensor.inner_motion_battery:
+      - Inner motion
+      - CR2450
+      sensor.living_room_motion_battery:
+      - Living room motion
+      - CR2450
+      sensor.bedroom_sensor_battery:
+      - Bedroom temperature sensor
+      - CR2032
+      sensor.desk_chair_battery:
+      - Desk chair sensor
+      - CR2032
+      sensor.washing_machine_battery_2:
+      - Washing machine sensor
+      - CR2032
+      sensor.water_leak_sensor_alarm_battery:
+      - Water leak sensor
+      - CR2032 (some versions take 2× AAA)
+      sensor.bot_4f21_battery:
+      - SwitchBot 4f21
+      - CR2
+      sensor.bot_b8cb_battery:
+      - SwitchBot b8cb
+      - CR2
+      sensor.keypad_v2_battery_level:
+      - Ring keypad
+      - recharge over USB
+      sensor.bedroom_shade_battery:
+      - Bedroom shade
+      - recharge with the Soma charger
   triggers:
   - trigger: numeric_state
     entity_id:
@@ -1057,12 +1108,10 @@
     id: weekly
   actions:
   - variables:
-      low: >-
-        {% set ns = namespace(items=[]) %}
-        {% for e, info in batteries.items() if is_number(states(e)) and states(e) | float < threshold %}
-          {% set ns.items = ns.items + [info[0] ~ ' (' ~ states(e) | float | round(0) | int ~ '%): ' ~ info[1]] %}
-        {% endfor %}
-        {{ ns.items }}
+      low: "{% set ns = namespace(items=[]) %} {% for e, info in batteries.items()
+        if is_number(states(e)) and states(e) | float < threshold %}\n  {% set ns.items
+        = ns.items + [info[0] ~ ' (' ~ states(e) | float | round(0) | int ~ '%): '
+        ~ info[1]] %}\n{% endfor %} {{ ns.items }}"
   - choose:
     - conditions:
       - condition: trigger
@@ -1071,9 +1120,9 @@
       - action: notify.mobile_app_zflip7
         data:
           title: Battery low
-          message: >-
-            {% set info = batteries.get(trigger.entity_id, [trigger.to_state.name, 'check the device']) %}
-            {{ info[0] }} is at {{ trigger.to_state.state | float | round(0) | int }}%. It takes {{ info[1] }}.
+          message: '{% set info = batteries.get(trigger.entity_id, [trigger.to_state.name,
+            ''check the device'']) %} {{ info[0] }} is at {{ trigger.to_state.state
+            | float | round(0) | int }}%. It takes {{ info[1] }}.'
     - conditions:
       - condition: trigger
         id: weekly
@@ -1089,21 +1138,19 @@
   mode: queued
 - id: '1789700000003'
   alias: Wake-up Light
-  description: Starts 20 minutes before the phone's next alarm (04:00-11:00, when
-    home). Bedside lamp fades from a dim warm glow to bright neutral white, then the
-    shade opens at alarm time. Turning the lamp off stops the fade.
+  description: Starts at 09:10 (when home and still in bed). Bedside lamp fades from
+    a dim warm glow to bright neutral white, then the shade opens 20 minutes later.
+    Turning the lamp off stops the fade.
   triggers:
   - trigger: time
-    at:
-      entity_id: sensor.zflip7_next_alarm
-      offset: -00:20:00
+    at: 09:10:00
   conditions:
   - condition: state
     entity_id: person.olli
     state: home
-  - condition: time
-    after: 03:40:00
-    before: '10:40:00'
+  - condition: state
+    entity_id: binary_sensor.in_bed
+    state: 'on'
   actions:
   - action: light.turn_on
     target:
@@ -1347,9 +1394,9 @@
       - action: notify.mobile_app_zflip7
         data:
           title: Vacuuming done
-          message: Cleaned {{ states('sensor.roborock_s6_cleaning_area') }} m² in {{
-            states('sensor.roborock_s6_cleaning_time') | float(0) | round(0) | int }}
-            minutes.
+          message: Cleaned {{ states('sensor.roborock_s6_cleaning_area') }} m² in
+            {{ states('sensor.roborock_s6_cleaning_time') | float(0) | round(0) |
+            int }} minutes.
           data:
             tag: vacuum
       - action: script.turn_on
@@ -1358,7 +1405,9 @@
         data:
           variables:
             message: The robot vacuum finished cleaning.
-            details: Cleaned {{ states('sensor.roborock_s6_cleaning_area') }} square meters in {{ states('sensor.roborock_s6_cleaning_time') | float(0) | round(0) | int }} minutes.
+            details: Cleaned {{ states('sensor.roborock_s6_cleaning_area') }} square
+              meters in {{ states('sensor.roborock_s6_cleaning_time') | float(0) |
+              round(0) | int }} minutes.
             priority: low
     - conditions:
       - condition: trigger
@@ -1377,7 +1426,8 @@
         data:
           variables:
             message: The robot vacuum is stuck and needs help.
-            details: 'Error: {{ states(''sensor.roborock_s6_vacuum_error'') | replace(''_'', '' '') }}.'
+            details: 'Error: {{ states(''sensor.roborock_s6_vacuum_error'') | replace(''_'',
+              '' '') }}.'
             priority: normal
   mode: single
 - id: '1789700000008'
@@ -1482,7 +1532,8 @@
       entity_id: script.announce
     data:
       variables:
-        message: The air is getting stale; suggest opening the balcony door for a bit.
+        message: The air is getting stale; suggest opening the balcony door for a
+          bit.
         details: VOC level is {{ states('sensor.airthings_voc') | int(0) }} ppb.
         priority: low
         room: living_room
@@ -1517,7 +1568,8 @@
           entity_id: script.announce
         data:
           variables:
-            message: The balcony door has been open for 10 minutes; time to close it.
+            message: The balcony door has been open for 10 minutes; time to close
+              it.
             priority: low
   mode: single
 - id: '1789700000010'
@@ -1539,21 +1591,19 @@
   - action: notify.mobile_app_zflip7
     data:
       title: Door open
-      message: >-
-        {% set d = [
-          'front door' if is_state('binary_sensor.front_door', 'on') else '',
-          'balcony door' if is_state('binary_sensor.balcony_door', 'on') else ''
-        ] | select | list %}
-        {{ (d | join(' and ')) | capitalize }} {{ 'are' if d | count > 1 else 'is' }} still open.
+      message: "{% set d = [\n  'front door' if is_state('binary_sensor.front_door',
+        'on') else '',\n  'balcony door' if is_state('binary_sensor.balcony_door',
+        'on') else ''\n] | select | list %} {{ (d | join(' and ')) | capitalize }}
+        {{ 'are' if d | count > 1 else 'is' }} still open."
   - action: script.turn_on
     target:
       entity_id: script.announce
     data:
       variables:
-        message: >-
-          {{ ['The front door' if is_state('binary_sensor.front_door', 'on') else '',
-              'the balcony door' if is_state('binary_sensor.balcony_door', 'on') else '']
-             | select | join(' and ') | capitalize }} still open at bedtime.
+        message: "{{ ['The front door' if is_state('binary_sensor.front_door', 'on')
+          else '',\n    'the balcony door' if is_state('binary_sensor.balcony_door',
+          'on') else '']\n   | select | join(' and ') | capitalize }} still open at
+          bedtime."
         priority: normal
         ignore_quiet_hours: true
   mode: single
@@ -1571,20 +1621,26 @@
     - name: Kitchen
       weekday: 2
     - name: Sauna
-      days: [1]
+      days:
+      - 1
     - name: Fridge
-      days: [1]
+      days:
+      - 1
     - name: Dust the shelves
-      days: [1, 15]
+      days:
+      - 1
+      - 15
     maintenance:
     - name: Clean the Roborock sensors
       due: '{{ states(''sensor.roborock_s6_sensor_time_left'') | float(1) <= 0 }}'
     - name: Clean the Roborock filter
       due: '{{ states(''sensor.roborock_s6_filter_time_left'') | float(1) <= 0 }}'
     - name: Clean the Roborock main brush
-      due: '{{ states(''sensor.roborock_s6_main_brush_time_left'') | float(1) <= 0 }}'
+      due: '{{ states(''sensor.roborock_s6_main_brush_time_left'') | float(1) <= 0
+        }}'
     - name: Clean the Roborock side brush
-      due: '{{ states(''sensor.roborock_s6_side_brush_time_left'') | float(1) <= 0 }}'
+      due: '{{ states(''sensor.roborock_s6_side_brush_time_left'') | float(1) <= 0
+        }}'
     - name: Clean the AC filter
       due: '{{ is_state(''binary_sensor.living_room_ac_filter_clean_required'', ''on'')
         and now().month in [5, 6, 7, 8, 9] }}'
@@ -1612,29 +1668,18 @@
         | list }}'
       done: '{{ items | selectattr(''status'', ''eq'', ''completed'') | map(attribute=''summary'')
         | list }}'
-      due_now: >-
-        {% if trigger.id == 'bedsheets' %}
-          {{ ['Change bedsheets'] }}
-        {% else %}
-          {% set ns = namespace(d=[]) %}
-          {% for c in scheduled %}
-            {% if (c.weekday is defined and now().weekday() == c.weekday)
-               or (c.days is defined and now().day in c.days) %}
-              {% set ns.d = ns.d + [c.name] %}
-            {% endif %}
-          {% endfor %}
-          {{ ns.d }}
-        {% endif %}
-      maint_due: >-
-        {% if trigger.id == 'daily' %}
-          {{ maintenance | selectattr('due') | map(attribute='name') | list }}
-        {% else %}[]{% endif %}
-      maint_reset: >-
-        {% if trigger.id == 'daily' %}
-          {{ maintenance | rejectattr('due') | map(attribute='name') | select('in', done) | list }}
-        {% else %}[]{% endif %}
-      to_add: '{{ (due_now | reject(''in'', open) | reject(''in'', done) | list) + (maint_due
-        | reject(''in'', open) | reject(''in'', done) | list) }}'
+      due_now: "{% if trigger.id == 'bedsheets' %}\n  {{ ['Change bedsheets'] }}\n{%
+        else %}\n  {% set ns = namespace(d=[]) %}\n  {% for c in scheduled %}\n    {%
+        if (c.weekday is defined and now().weekday() == c.weekday)\n       or (c.days
+        is defined and now().day in c.days) %}\n      {% set ns.d = ns.d + [c.name]
+        %}\n    {% endif %}\n  {% endfor %}\n  {{ ns.d }}\n{% endif %}"
+      maint_due: "{% if trigger.id == 'daily' %}\n  {{ maintenance | selectattr('due')
+        | map(attribute='name') | list }}\n{% else %}[]{% endif %}"
+      maint_reset: "{% if trigger.id == 'daily' %}\n  {{ maintenance | rejectattr('due')
+        | map(attribute='name') | select('in', done) | list }}\n{% else %}[]{% endif
+        %}"
+      to_add: '{{ (due_now | reject(''in'', open) | reject(''in'', done) | list) +
+        (maint_due | reject(''in'', open) | reject(''in'', done) | list) }}'
       to_reopen: '{{ due_now | select(''in'', done) | list }}'
   - repeat:
       for_each: '{{ to_add }}'
@@ -1689,25 +1734,21 @@
         | list }}'
       started: '{{ as_datetime(states(''sensor.uptime''), now() - timedelta(days=30))
         }}'
-      offline: >-
-        {% set ns = namespace(e=[]) %}
-        {% for s in states
-           if s.domain in ['light', 'switch', 'binary_sensor', 'sensor', 'media_player', 'climate', 'cover', 'fan', 'vacuum']
-           and s.state == 'unavailable'
-           and s.last_changed > now() - timedelta(days=7)
-           and s.last_changed > as_datetime(started) + timedelta(minutes=15) %}
-          {% set ns.e = ns.e + [s.name] %}
-        {% endfor %}
-        {{ ns.e }}
+      offline: "{% set ns = namespace(e=[]) %} {% for s in states\n   if s.domain
+        in ['light', 'switch', 'binary_sensor', 'sensor', 'media_player', 'climate',
+        'cover', 'fan', 'vacuum']\n   and s.state == 'unavailable'\n   and s.last_changed
+        > now() - timedelta(days=7)\n   and s.last_changed > as_datetime(started)
+        + timedelta(minutes=15) %}\n  {% set ns.e = ns.e + [s.name] %}\n{% endfor
+        %} {{ ns.e }}"
   - action: notify.mobile_app_zflip7
     data:
       title: Weekly HA check
-      message: >-
-        {% if updates | count == 0 and offline | count == 0 %}All good: no updates waiting and nothing went offline this week.
-        {%- else -%}
-        {%- if updates | count > 0 %}Updates ({{ updates | count }}): {{ updates | join(', ') }}.{% endif %}
-        {%- if offline | count > 0 %} Went offline ({{ offline | count }}): {{ offline[:10] | join(', ') }}{{ ' and more' if offline | count > 10 }}.{% endif %}
-        {%- endif %}
+      message: '{% if updates | count == 0 and offline | count == 0 %}All good: no
+        updates waiting and nothing went offline this week. {%- else -%} {%- if updates
+        | count > 0 %}Updates ({{ updates | count }}): {{ updates | join('', '') }}.{%
+        endif %} {%- if offline | count > 0 %} Went offline ({{ offline | count }}):
+        {{ offline[:10] | join('', '') }}{{ '' and more'' if offline | count > 10
+        }}.{% endif %} {%- endif %}'
       data:
         tag: health-check
   mode: single
@@ -1724,13 +1765,15 @@
     response_variable: result
   - if:
     - condition: template
-      value_template: '{{ result.returncode != 0 or ''Backed up'' in result.stdout }}'
+      value_template: '{{ result.returncode != 0 or ''Backed up'' in result.stdout
+        }}'
     then:
     - action: notify.mobile_app_zflip7
       data:
-        title: '{{ ''UI edits backed up'' if result.returncode == 0 else ''UI backup failed''
+        title: '{{ ''UI edits backed up'' if result.returncode == 0 else ''UI backup
+          failed'' }}'
+        message: '{{ (result.stdout ~ '' '' ~ result.stderr) | trim | truncate(250)
           }}'
-        message: '{{ (result.stdout ~ '' '' ~ result.stderr) | trim | truncate(250) }}'
         data:
           tag: ui-backup
   mode: single
@@ -1774,19 +1817,18 @@
   mode: single
 - id: '1789700000016'
   alias: Good Morning
-  description: At the phone's alarm time (04:00-11:00, when home), the Echo in the
-    bedroom says good morning with today's weather and the first calendar event.
+  description: At 09:30 (when home and still in bed), the Echo in the bedroom says
+    good morning with today's weather and the first calendar event.
   triggers:
   - trigger: time
-    at:
-      entity_id: sensor.zflip7_next_alarm
+    at: 09:30:00
   conditions:
   - condition: state
     entity_id: person.olli
     state: home
-  - condition: time
-    after: 04:00:00
-    before: '11:00:00'
+  - condition: state
+    entity_id: binary_sensor.in_bed
+    state: 'on'
   actions:
   - action: weather.get_forecasts
     continue_on_error: true
@@ -1816,14 +1858,15 @@
     data:
       variables:
         message: Good morning, time to get up.
-        details: >-
-          {% if today %}Today: {{ today.condition | replace('partlycloudy', 'partly cloudy') | replace('-', ' ') }}, high
-          {{ today.temperature | round(0) | int }} °C, low {{ today.templow | round(0) | int }} °C
-          {%- if today.precipitation | default(0) > 0 %}, {{ today.precipitation }} mm of rain or snow{% endif %}.{% endif %}
-          {% if first_event %}First on the calendar: {{ first_event.summary }}
-          {%- if 'T' in first_event.start %} at {{ as_datetime(first_event.start).strftime('%H:%M') }}{% endif %}.
-          {% else %}Nothing on the calendar today.{% endif %}
-          Mention the weather and the calendar item; it may be two sentences.
+        details: '{% if today %}Today: {{ today.condition | replace(''partlycloudy'',
+          ''partly cloudy'') | replace(''-'', '' '') }}, high {{ today.temperature
+          | round(0) | int }} °C, low {{ today.templow | round(0) | int }} °C {%-
+          if today.precipitation | default(0) > 0 %}, {{ today.precipitation }} mm
+          of rain or snow{% endif %}.{% endif %} {% if first_event %}First on the
+          calendar: {{ first_event.summary }} {%- if ''T'' in first_event.start %}
+          at {{ as_datetime(first_event.start).strftime(''%H:%M'') }}{% endif %}.
+          {% else %}Nothing on the calendar today.{% endif %} Mention the weather
+          and the calendar item; it may be two sentences.'
         priority: normal
         room: bedroom
         ignore_quiet_hours: true
