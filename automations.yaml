@@ -588,9 +588,27 @@
         value_template: '{{ trigger.event.data.command == ''press'' and trigger.event.data.args[0]
           == 256 }}'
       sequence:
-      - action: light.toggle
-        target:
+      - if:
+        - condition: state
           entity_id: light.bedside_lamp
+          state: 'on'
+        then:
+        - action: light.turn_off
+          target:
+            entity_id: light.bedside_lamp
+        - action: switch.turn_off
+          target:
+            entity_id: switch.bedside_outlet
+        else:
+        - action: light.turn_on
+          target:
+            entity_id: light.bedside_lamp
+          data:
+            brightness_pct: 76
+            hs_color: [36, 70]
+        - action: switch.turn_on
+          target:
+            entity_id: switch.bedside_outlet
     - conditions:
       - condition: template
         value_template: '{{ trigger.event.data.command == ''press'' and trigger.event.data.args[0]
@@ -612,6 +630,7 @@
           entity_id: light.bedside_lamp
         data:
           brightness_pct: 100
+          hs_color: [36, 70]
   mode: queued
   max: 4
 - id: '1789592215369'
@@ -1138,8 +1157,8 @@
   mode: queued
 - id: '1789700000003'
   alias: Wake-up Light
-  description: Starts at 09:10 (when home and still in bed). Bedside lamp fades from
-    a dim warm glow to bright neutral white, then the shade opens 20 minutes later.
+  description: Starts at 09:10 (when home and still in bed). Bedside lamp fades up
+    in its usual amber colour, then the shade opens 20 minutes later.
     Turning the lamp off stops the fade.
   triggers:
   - trigger: time
@@ -1157,7 +1176,7 @@
       entity_id: light.bedside_lamp
     data:
       brightness_pct: 1
-      color_temp_kelvin: 2000
+      hs_color: [36, 70]
   - repeat:
       while:
       - condition: state
@@ -1177,7 +1196,7 @@
             entity_id: light.bedside_lamp
           data:
             brightness_pct: '{{ 1 + repeat.index * 4 }}'
-            color_temp_kelvin: '{{ 2000 + repeat.index * 80 }}'
+            hs_color: [36, 70]
   - if:
     - condition: state
       entity_id: light.bedside_lamp
@@ -1230,14 +1249,23 @@
     - action: input_boolean.turn_on
       target:
         entity_id: input_boolean.lights_are_on
-    - action: script.turn_on
-      target:
-        entity_id: script.announce
-      data:
-        variables:
-          message: Olli just got home and it's dark out, so the lights are on.
-          priority: low
-          room: living_room
+    - if:
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: vacuum.roborock_s6
+          state:
+          - cleaning
+          - returning
+      then:
+      - action: script.turn_on
+        target:
+          entity_id: script.announce
+        data:
+          variables:
+            message: Olli just got home and it's dark out, so the lights are on.
+            priority: low
+            room: living_room
   - if:
     - condition: state
       entity_id: input_boolean.sonos_resume
@@ -1350,7 +1378,7 @@
       entity_id: light.bedside_lamp
     data:
       brightness_pct: 25
-      color_temp_kelvin: 2200
+      hs_color: [36, 70]
   - action: input_boolean.turn_off
     target:
       entity_id: input_boolean.lights_are_on

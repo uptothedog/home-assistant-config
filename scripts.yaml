@@ -196,14 +196,21 @@ announce:
 
           Tone: neutral and clear; a light touch of playfulness is fine
           {%- if night %}, but keep it calm, it's night{% endif %}.
-          Use Olli's name only now and then. Write numbers and units the way
+          Don't address Olli by name. Write it as one flowing sentence with as few
+          commas as possible and no exclamation marks, ellipses or dashes, so it
+          doesn't sound stilted when read aloud. Write numbers and units the way
           they are spoken. No emojis, lists, abbreviations or quotation marks.
           Don't reuse the wording of the previous announcement: "{{ states('input_text.last_announcement') }}".
           Reply with only the sentence.
       response_variable: ai
     - variables:
-        text: '{{ ai.data | trim if ai is defined and ai.data is string and ai.data
-          | trim | length > 0 else message }}'
+        text: >-
+          {% if ai is defined and ai.data is string and ai.data | trim | length > 0 %}
+            {% set x = ai.data | trim | regex_replace(',?\\s*\\bOlli\\b(?!\\x27)\\s*([!,.]?)', '\\1')
+               | replace('!', '.') | replace('…', ',') | replace('...', ',')
+               | regex_replace('^[\\s,.]+', '') %}
+            {{ x[:1] | upper ~ x[1:] }}
+          {% else %}{{ message }}{% endif %}
   - variables:
       sonos_volume: '{{ 60 if prio == ''urgent'' else (35 if night else 45) }}'
       echo_volume: '{{ 0.7 if prio == ''urgent'' else (0.3 if night else 0.45) }}'
