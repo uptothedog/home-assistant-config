@@ -252,19 +252,6 @@
     type: remote_button_short_press
     subtype: remote_button_short_press
     id: button
-  - trigger: state
-    entity_id: binary_sensor.desk_chair
-    from: 'off'
-    to: 'on'
-    id: sat_down
-  - trigger: state
-    entity_id: binary_sensor.desk_chair
-    to: 'off'
-    for:
-      minutes: 10
-    id: left_desk
-  variables:
-    monitors_on: '{{ is_state(''switch.desk_monitors'', ''on'') }}'
   actions:
   - choose:
     - conditions:
@@ -287,6 +274,8 @@
           entity_id:
           - switch.desk_lights
           - switch.desk_monitors
+  variables:
+    monitors_on: '{{ is_state(''switch.desk_monitors'', ''on'') }}'
   mode: single
 - id: '1663155469637'
   alias: Ring Keypad Automations
@@ -605,7 +594,9 @@
             entity_id: light.bedside_lamp
           data:
             brightness_pct: 76
-            hs_color: [36, 70]
+            hs_color:
+            - 36
+            - 70
         - action: switch.turn_on
           target:
             entity_id: switch.bedside_outlet
@@ -630,7 +621,9 @@
           entity_id: light.bedside_lamp
         data:
           brightness_pct: 100
-          hs_color: [36, 70]
+          hs_color:
+          - 36
+          - 70
   mode: queued
   max: 4
 - id: '1789592215369'
@@ -1158,8 +1151,8 @@
 - id: '1789700000003'
   alias: Wake-up Light
   description: Starts at 09:10 (when home and still in bed). Bedside lamp fades up
-    in its usual amber colour, then the shade opens 20 minutes later.
-    Turning the lamp off stops the fade.
+    in its usual amber colour, then the shade opens 20 minutes later. Turning the
+    lamp off stops the fade.
   triggers:
   - trigger: time
     at: 09:10:00
@@ -1176,7 +1169,9 @@
       entity_id: light.bedside_lamp
     data:
       brightness_pct: 1
-      hs_color: [36, 70]
+      hs_color:
+      - 36
+      - 70
   - repeat:
       while:
       - condition: state
@@ -1196,7 +1191,9 @@
             entity_id: light.bedside_lamp
           data:
             brightness_pct: '{{ 1 + repeat.index * 4 }}'
-            hs_color: [36, 70]
+            hs_color:
+            - 36
+            - 70
   - if:
     - condition: state
       entity_id: light.bedside_lamp
@@ -1378,7 +1375,9 @@
       entity_id: light.bedside_lamp
     data:
       brightness_pct: 25
-      hs_color: [36, 70]
+      hs_color:
+      - 36
+      - 70
   - action: input_boolean.turn_off
     target:
       entity_id: input_boolean.lights_are_on
