@@ -9,7 +9,7 @@
       - xy
       effect: 'off'
       color_mode: xy
-      brightness: 254
+      brightness: 24
       hs_color:
       - 14.795
       - 28.627
@@ -22,20 +22,17 @@
       - 0.342
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Kitchen
+      friendly_name: Kitchen Light
       supported_features: 44
       state: 'on'
     light.living_room_ceiling_1:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 254
       color_temp_kelvin: 3184
-      color_temp: 314
       hs_color:
       - 27.547
       - 52.114
@@ -48,20 +45,17 @@
       - 0.38
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Ceiling 1
+      friendly_name: Living Room Ceiling 1
       supported_features: 40
       state: 'on'
     light.living_room_ceiling_2:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 254
       color_temp_kelvin: 3184
-      color_temp: 314
       hs_color:
       - 27.547
       - 52.114
@@ -74,20 +68,17 @@
       - 0.38
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Ceiling 2 Light
+      friendly_name: Living Room Ceiling 2 Light
       supported_features: 40
       state: 'on'
     light.living_room_ceiling_3:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 254
       color_temp_kelvin: 3105
-      color_temp: 322
       hs_color:
       - 27.661
       - 54.116
@@ -100,26 +91,23 @@
       - 0.382
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Ceiling 3 Light
+      friendly_name: Living Room Ceiling 3 Light
       supported_features: 40
       state: 'on'
     light.living_room_floor_2:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
       off_with_transition: false
       off_brightness: 254
-      friendly_name: Light Floor 2 Light
+      friendly_name: Living Room Floor 2 Light
       supported_features: 40
       state: 'off'
     light.entryway_ceiling_light:
@@ -134,33 +122,32 @@
       state: 'on'
     light.kitchen_led:
       effect_list:
+      - 'off'
       - 0 Rainbow
       - 1 Tropical
       - 2 Mint
       - 3 Peachy
       supported_color_modes:
       - rgb
-      effect: 0 Rainbow
+      effect: 'off'
       color_mode: rgb
-      brightness: 74
+      brightness: 36
       hs_color:
-      - 1
-      - 47.059
+      - 9.123
+      - 67.059
       rgb_color:
       - 255
-      - 137
-      - 135
+      - 110
+      - 84
       xy_color:
-      - 0.508
-      - 0.316
+      - 0.589
+      - 0.329
       friendly_name: Kitchen LED
       supported_features: 4
       state: 'on'
     light.window_light:
       min_color_temp_kelvin: 1901
       max_color_temp_kelvin: 6535
-      min_mireds: 153
-      max_mireds: 526
       effect_list:
       - 'off'
       - colorloop
@@ -171,13 +158,12 @@
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
       off_with_transition: false
       off_brightness: 92
-      friendly_name: Window Light
+      friendly_name: Window Light Window Light
       supported_features: 44
       state: 'off'
     light.living_room_floor_1:
@@ -187,20 +173,18 @@
       brightness:
       off_with_transition: false
       off_brightness: 191
-      friendly_name: Light Floor 1
+      friendly_name: Living Room Floor 1
       supported_features: 40
       state: 'off'
     switch.tv_stand_led:
       friendly_name: Outlet Tv Stand LED
       state: 'off'
     switch.shelf_outlet:
-      friendly_name: Outlet Shelf
+      friendly_name: Shelf Outlet
       state: 'off'
     light.sofa_light:
       min_color_temp_kelvin: 2200
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 454
       effect_list:
       - Alarm
       - Bedtime
@@ -240,11 +224,10 @@
       supported_color_modes:
       - color_temp
       - rgbw
-      effect: Daylight
+      effect:
       color_mode: color_temp
       brightness: 128
       color_temp_kelvin: 4200
-      color_temp: 238
       hs_color:
       - 26.743
       - 31.364
@@ -259,11 +242,32 @@
       friendly_name: Sofa Light
       supported_features: 4
       state: 'on'
+    light.omen_front_logo:
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 48
+      - 1.961
+      rgb_color:
+      - 255
+      - 254
+      - 250
+      xy_color:
+      - 0.326
+      - 0.333
+      icon: mdi:desktop-tower
+      friendly_name: Omen front logo
+      supported_features: 0
+      state: 'on'
   icon: mdi:clock-time-nine
   metadata:
     switch.tv_stand_led:
       entity_only: true
     switch.shelf_outlet:
+      entity_only: true
+    light.omen_front_logo:
       entity_only: true
 - id: '1618154581514'
   name: Evening
@@ -276,7 +280,7 @@
       - xy
       effect: 'off'
       color_mode: xy
-      brightness: 217
+      brightness: 23
       hs_color:
       - 29.63
       - 63.529
@@ -289,20 +293,17 @@
       - 0.392
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Kitchen
+      friendly_name: Kitchen Light
       supported_features: 44
       state: 'on'
     light.living_room_ceiling_1:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 254
       color_temp_kelvin: 2304
-      color_temp: 434
       hs_color:
       - 29.444
       - 80.129
@@ -315,20 +316,17 @@
       - 0.389
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Ceiling 1
+      friendly_name: Living Room Ceiling 1
       supported_features: 40
       state: 'on'
     light.living_room_ceiling_2:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 254
       color_temp_kelvin: 2304
-      color_temp: 434
       hs_color:
       - 29.444
       - 80.129
@@ -341,20 +339,17 @@
       - 0.389
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Ceiling 2 Light
+      friendly_name: Living Room Ceiling 2 Light
       supported_features: 40
       state: 'on'
     light.living_room_ceiling_3:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 254
       color_temp_kelvin: 2304
-      color_temp: 434
       hs_color:
       - 29.444
       - 80.129
@@ -367,23 +362,20 @@
       - 0.389
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Ceiling 3 Light
+      friendly_name: Living Room Ceiling 3 Light
       supported_features: 40
       state: 'on'
     switch.rope_light:
-      friendly_name: Light Bulb Rope
+      friendly_name: Rope Light
       state: 'on'
     light.living_room_floor_2:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 254
       color_temp_kelvin: 2202
-      color_temp: 454
       hs_color:
       - 29.79
       - 84.553
@@ -396,30 +388,31 @@
       - 0.388
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Floor 2 Light
+      friendly_name: Living Room Floor 2 Light
       supported_features: 40
       state: 'on'
     light.kitchen_led:
       effect_list:
+      - 'off'
       - 0 Rainbow
       - 1 Tropical
       - 2 Mint
       - 3 Peachy
       supported_color_modes:
       - rgb
-      effect: 0 Rainbow
+      effect: 'off'
       color_mode: rgb
-      brightness: 255
+      brightness: 87
       hs_color:
-      - 346.813
-      - 71.373
+      - 30.622
+      - 94.51
       rgb_color:
       - 255
-      - 73
-      - 113
+      - 137
+      - 14
       xy_color:
-      - 0.582
-      - 0.279
+      - 0.598
+      - 0.383
       friendly_name: Kitchen LED
       supported_features: 4
       state: 'on'
@@ -436,8 +429,6 @@
     light.window_light:
       min_color_temp_kelvin: 1901
       max_color_temp_kelvin: 6535
-      min_mireds: 153
-      max_mireds: 526
       effect_list:
       - 'off'
       - colorloop
@@ -448,7 +439,6 @@
       color_mode: xy
       brightness: 191
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 8.148
       - 63.529
@@ -461,7 +451,7 @@
       - 0.327
       off_with_transition: false
       off_brightness:
-      friendly_name: Window Light
+      friendly_name: Window Light Window Light
       supported_features: 44
       state: 'on'
     light.living_room_floor_1:
@@ -471,11 +461,11 @@
       brightness: 191
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Floor 1
+      friendly_name: Living Room Floor 1
       supported_features: 40
       state: 'on'
     switch.shelf_outlet:
-      friendly_name: Outlet Shelf
+      friendly_name: Shelf Outlet
       state: 'off'
     switch.tv_stand_led:
       friendly_name: Outlet Tv Stand LED
@@ -483,8 +473,6 @@
     light.sofa_light:
       min_color_temp_kelvin: 2200
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 454
       effect_list:
       - Alarm
       - Bedtime
@@ -528,7 +516,6 @@
       color_mode: rgbw
       brightness: 255
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 9.048
       - 49.412
@@ -547,11 +534,32 @@
       friendly_name: Sofa Light
       supported_features: 4
       state: 'on'
+    light.omen_front_logo:
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 13.92
+      - 98.039
+      rgb_color:
+      - 255
+      - 63
+      - 5
+      xy_color:
+      - 0.676
+      - 0.319
+      icon: mdi:desktop-tower
+      friendly_name: Omen front logo
+      supported_features: 0
+      state: 'on'
   icon: mdi:clock-time-six
   metadata:
     switch.shelf_outlet:
       entity_only: true
     switch.tv_stand_led:
+      entity_only: true
+    light.omen_front_logo:
       entity_only: true
 - id: '1618154758340'
   name: Late Night
@@ -569,78 +577,66 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 217
-      friendly_name: Light Kitchen
+      off_brightness: 23
+      friendly_name: Kitchen Light
       supported_features: 44
       state: 'off'
     light.living_room_ceiling_1:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
       off_with_transition: false
       off_brightness: 254
-      friendly_name: Light Ceiling 1
+      friendly_name: Living Room Ceiling 1
       supported_features: 40
       state: 'off'
     light.living_room_ceiling_2:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
       off_with_transition: false
       off_brightness: 254
-      friendly_name: Light Ceiling 2 Light
+      friendly_name: Living Room Ceiling 2 Light
       supported_features: 40
       state: 'off'
     light.living_room_ceiling_3:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
       off_with_transition: false
       off_brightness: 254
-      friendly_name: Light Ceiling 3 Light
+      friendly_name: Living Room Ceiling 3 Light
       supported_features: 40
       state: 'off'
     light.living_room_floor_2:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 254
       color_temp_kelvin: 2202
-      color_temp: 454
       hs_color:
       - 29.79
       - 84.553
@@ -653,20 +649,19 @@
       - 0.388
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Floor 2 Light
+      friendly_name: Living Room Floor 2 Light
       supported_features: 40
       state: 'on'
     light.kitchen_led:
       effect_list:
+      - 'off'
       - 0 Rainbow
       - 1 Tropical
       - 2 Mint
       - 3 Peachy
       supported_color_modes:
       - rgb
-      friendly_name: Kitchen LED
-      supported_features: 4
-      effect: 0 Rainbow
+      effect: 'off'
       color_mode: rgb
       brightness: 110
       hs_color:
@@ -679,6 +674,8 @@
       xy_color:
       - 0.663
       - 0.331
+      friendly_name: Kitchen LED
+      supported_features: 4
       state: 'on'
     light.entryway_ceiling_light:
       supported_color_modes:
@@ -686,15 +683,13 @@
       color_mode:
       brightness:
       off_with_transition: false
-      off_brightness: 158
+      off_brightness: 204
       friendly_name: Entryway Ceiling
       supported_features: 40
       state: 'off'
     light.window_light:
       min_color_temp_kelvin: 1901
       max_color_temp_kelvin: 6535
-      min_mireds: 153
-      max_mireds: 526
       effect_list:
       - 'off'
       - colorloop
@@ -705,7 +700,6 @@
       color_mode: xy
       brightness: 92
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 22.025
       - 92.941
@@ -718,7 +712,7 @@
       - 0.348
       off_with_transition: false
       off_brightness:
-      friendly_name: Window Light
+      friendly_name: Window Light Window Light
       supported_features: 44
       state: 'on'
     light.living_room_floor_1:
@@ -728,11 +722,11 @@
       brightness: 191
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Floor 1
+      friendly_name: Living Room Floor 1
       supported_features: 40
       state: 'on'
     switch.shelf_outlet:
-      friendly_name: Outlet Shelf
+      friendly_name: Shelf Outlet
       state: 'on'
     switch.tv_stand_led:
       friendly_name: Outlet Tv Stand LED
@@ -740,8 +734,6 @@
     light.sofa_light:
       min_color_temp_kelvin: 2200
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 454
       effect_list:
       - Alarm
       - Bedtime
@@ -785,7 +777,6 @@
       color_mode: color_temp
       brightness: 64
       color_temp_kelvin: 2200
-      color_temp: 454
       hs_color:
       - 29.797
       - 84.644
@@ -800,11 +791,25 @@
       friendly_name: Sofa Light
       supported_features: 4
       state: 'on'
+    light.omen_front_logo:
+      supported_color_modes:
+      - rgb
+      color_mode:
+      brightness:
+      hs_color:
+      rgb_color:
+      xy_color:
+      icon: mdi:desktop-tower
+      friendly_name: Omen front logo
+      supported_features: 0
+      state: 'off'
   icon: mdi:clock-time-twelve
   metadata:
     switch.shelf_outlet:
       entity_only: true
     switch.tv_stand_led:
+      entity_only: true
+    light.omen_front_logo:
       entity_only: true
 - id: '1619974955484'
   name: Alarm
@@ -1536,20 +1541,17 @@
       - 0.302
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Kitchen
+      friendly_name: Kitchen Light
       supported_features: 44
       state: 'on'
     light.living_room_ceiling_1:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 79
       color_temp_kelvin: 2202
-      color_temp: 454
       hs_color:
       - 29.79
       - 84.553
@@ -1562,20 +1564,17 @@
       - 0.388
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Ceiling 1
+      friendly_name: Living Room Ceiling 1
       supported_features: 40
       state: 'on'
     light.living_room_ceiling_2:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 82
       color_temp_kelvin: 2304
-      color_temp: 434
       hs_color:
       - 29.444
       - 80.129
@@ -1588,20 +1587,17 @@
       - 0.389
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Ceiling 2 Light
+      friendly_name: Living Room Ceiling 2 Light
       supported_features: 40
       state: 'on'
     light.living_room_ceiling_3:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 97
       color_temp_kelvin: 2304
-      color_temp: 434
       hs_color:
       - 29.444
       - 80.129
@@ -1614,23 +1610,20 @@
       - 0.389
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Ceiling 3 Light
+      friendly_name: Living Room Ceiling 3 Light
       supported_features: 40
       state: 'on'
     switch.rope_light:
-      friendly_name: Light Bulb Rope
+      friendly_name: Rope Light
       state: 'on'
     light.living_room_floor_2:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode: color_temp
       brightness: 254
       color_temp_kelvin: 2202
-      color_temp: 454
       hs_color:
       - 29.79
       - 84.553
@@ -1643,27 +1636,41 @@
       - 0.388
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Floor 2 Light
+      friendly_name: Living Room Floor 2 Light
       supported_features: 40
       state: 'on'
     light.kitchen_led:
       effect_list:
+      - 'off'
       - 0 Rainbow
       - 1 Tropical
       - 2 Mint
       - 3 Peachy
       supported_color_modes:
       - rgb
+      effect: 1 Tropical
+      color_mode: rgb
+      brightness: 127
+      hs_color:
+      - 0
+      - 0
+      rgb_color:
+      - 255
+      - 255
+      - 255
+      xy_color:
+      - 0.323
+      - 0.329
       friendly_name: Kitchen LED
       supported_features: 4
-      state: unavailable
+      state: 'on'
     light.entryway_ceiling_light:
       supported_color_modes:
       - brightness
       color_mode:
       brightness:
       off_with_transition: false
-      off_brightness: 158
+      off_brightness: 204
       friendly_name: Entryway Ceiling
       supported_features: 40
       state: 'off'
@@ -1699,8 +1706,6 @@
     light.window_light:
       min_color_temp_kelvin: 1901
       max_color_temp_kelvin: 6535
-      min_mireds: 153
-      max_mireds: 526
       effect_list:
       - 'off'
       - colorloop
@@ -1711,7 +1716,6 @@
       color_mode: xy
       brightness: 92
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 304.941
       - 100
@@ -1724,7 +1728,7 @@
       - 0.167
       off_with_transition: false
       off_brightness:
-      friendly_name: Window Light
+      friendly_name: Window Light Window Light
       supported_features: 44
       state: 'on'
     light.living_room_floor_1:
@@ -1734,14 +1738,12 @@
       brightness: 191
       off_with_transition: false
       off_brightness:
-      friendly_name: Light Floor 1
+      friendly_name: Living Room Floor 1
       supported_features: 40
       state: 'on'
     light.sofa_light:
       min_color_temp_kelvin: 2200
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 454
       effect_list:
       - Alarm
       - Bedtime
@@ -1785,7 +1787,6 @@
       color_mode: rgbw
       brightness: 255
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 339.059
       - 100
@@ -1805,10 +1806,31 @@
       supported_features: 4
       state: 'on'
     switch.shelf_outlet:
-      friendly_name: Outlet Shelf
+      friendly_name: Shelf Outlet
       state: 'off'
+    light.omen_front_logo:
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 255
+      hs_color:
+      - 46.824
+      - 100
+      rgb_color:
+      - 255
+      - 199
+      - 0
+      xy_color:
+      - 0.516
+      - 0.456
+      icon: mdi:desktop-tower
+      friendly_name: Omen front logo
+      supported_features: 0
+      state: 'on'
   icon: mdi:hexagram-outline
-  metadata: {}
+  metadata:
+    light.omen_front_logo:
+      entity_only: true
 - id: '1730823053649'
   name: DeskOn
   entities:
@@ -1945,27 +1967,28 @@
   entities:
     light.kitchen_led:
       effect_list:
+      - 'off'
       - 0 Rainbow
       - 1 Tropical
       - 2 Mint
       - 3 Peachy
       supported_color_modes:
       - rgb
-      friendly_name: Kitchen LED
-      supported_features: 4
-      effect: 0 Rainbow
+      effect: 'off'
       color_mode: rgb
-      brightness: 69
+      brightness: 189
       hs_color:
-      - 220.118
-      - 66.275
+      - 222
+      - 98.039
       rgb_color:
-      - 86
-      - 142
+      - 5
+      - 80
       - 255
       xy_color:
-      - 0.174
-      - 0.167
+      - 0.138
+      - 0.08
+      friendly_name: Kitchen LED
+      supported_features: 4
       state: 'on'
     light.kitchen_light:
       effect_list:
@@ -1980,65 +2003,56 @@
       rgb_color:
       xy_color:
       off_with_transition: false
-      off_brightness: 254
-      friendly_name: Light Kitchen
+      off_brightness: 75
+      friendly_name: Kitchen Light
       supported_features: 44
       state: 'off'
     light.living_room_ceiling_1:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
       off_with_transition: false
       off_brightness: 254
-      friendly_name: Light Ceiling 1
+      friendly_name: Living Room Ceiling 1
       supported_features: 40
       state: 'off'
     light.living_room_ceiling_2:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
       off_with_transition: false
       off_brightness: 254
-      friendly_name: Light Ceiling 2 Light
+      friendly_name: Living Room Ceiling 2 Light
       supported_features: 40
       state: 'off'
     light.living_room_ceiling_3:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
       off_with_transition: false
       off_brightness: 254
-      friendly_name: Light Ceiling 3 Light
+      friendly_name: Living Room Ceiling 3 Light
       supported_features: 40
       state: 'off'
     light.cololight:
@@ -2082,22 +2096,18 @@
     light.desk_strip:
       min_color_temp_kelvin: 2000
       max_color_temp_kelvin: 6535
-      min_mireds: 153
-      max_mireds: 500
       effect_list:
       - 'off'
       - colorloop
       supported_color_modes:
       - color_temp
       - xy
-      friendly_name: Light Desk Strip Huelight
+      friendly_name: Light Desk Strip Desk Strip
       supported_features: 44
       state: unavailable
     light.window_light:
       min_color_temp_kelvin: 1901
       max_color_temp_kelvin: 6535
-      min_mireds: 153
-      max_mireds: 526
       effect_list:
       - 'off'
       - colorloop
@@ -2108,7 +2118,6 @@
       color_mode: xy
       brightness: 191
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 214.154
       - 76.471
@@ -2121,7 +2130,7 @@
       - 0.162
       off_with_transition: false
       off_brightness:
-      friendly_name: Window Light
+      friendly_name: Window Light Window Light
       supported_features: 44
       state: 'on'
     light.entryway_ceiling_light:
@@ -2130,27 +2139,24 @@
       color_mode:
       brightness:
       off_with_transition: false
-      off_brightness: 158
+      off_brightness: 204
       friendly_name: Entryway Ceiling
       supported_features: 40
       state: 'off'
     light.living_room_floor_2:
       min_color_temp_kelvin: 2202
       max_color_temp_kelvin: 4000
-      min_mireds: 250
-      max_mireds: 454
       supported_color_modes:
       - color_temp
       color_mode:
       brightness:
       color_temp_kelvin:
-      color_temp:
       hs_color:
       rgb_color:
       xy_color:
       off_with_transition: false
       off_brightness: 254
-      friendly_name: Light Floor 2 Light
+      friendly_name: Living Room Floor 2 Light
       supported_features: 40
       state: 'off'
     light.living_room_floor_1:
@@ -2160,14 +2166,12 @@
       brightness:
       off_with_transition: false
       off_brightness: 191
-      friendly_name: Light Floor 1
+      friendly_name: Living Room Floor 1
       supported_features: 40
       state: 'off'
     light.sofa_light:
       min_color_temp_kelvin: 2200
       max_color_temp_kelvin: 6500
-      min_mireds: 153
-      max_mireds: 454
       effect_list:
       - Alarm
       - Bedtime
@@ -2211,7 +2215,6 @@
       color_mode: rgbw
       brightness: 125
       color_temp_kelvin:
-      color_temp:
       hs_color:
       - 184
       - 100
@@ -2231,6 +2234,27 @@
       supported_features: 4
       state: 'on'
     switch.shelf_outlet:
-      friendly_name: Outlet Shelf
+      friendly_name: Shelf Outlet
       state: 'off'
-  metadata: {}
+    light.omen_front_logo:
+      supported_color_modes:
+      - rgb
+      color_mode: rgb
+      brightness: 133
+      hs_color:
+      - 222.118
+      - 100
+      rgb_color:
+      - 0
+      - 76
+      - 255
+      xy_color:
+      - 0.137
+      - 0.076
+      icon: mdi:desktop-tower
+      friendly_name: Omen front logo
+      supported_features: 0
+      state: 'on'
+  metadata:
+    light.omen_front_logo:
+      entity_only: true
